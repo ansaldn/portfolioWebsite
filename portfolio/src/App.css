@@ -40,3 +40,19 @@
 .read-the-docs {
   color: #888;
 }
+
+.card.text-bg-primary.mb-3 {
+  max-width:100%;
+}
+
+.card.Heading {
+  width: 18rem;
+}
+
+.card.techStack {
+  width: 15rem;
+}
+
+#techStack:hover {
+  size: 500px;
+}
