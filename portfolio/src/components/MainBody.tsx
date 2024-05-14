@@ -11,50 +11,35 @@ function MainBody() {
         <div className="container">
           <div className="row">
             <div className="card Heading">
-              <div className="card-img-top">{/* Card content */}</div>
+              <img src="..." className="card-img-top" alt="..."></img>
+              <div className="card-body">
+                <h5 className="card-title"> Card Title</h5>
+                <p className="card-text"> Some more example text</p>
+                <a href="#" className="btn btn-primary">
+                  Go Somewhere
+                </a>
+              </div>
             </div>
             <div className="card Heading">
-              <div className="card-img-top">{/* Card content */}</div>
+              <img src="..." className="card-img-top" alt="..."></img>
+              <div className="card-body">
+                <h5 className="card-title"> Card Title</h5>
+                <p className="card-text"> Some more example text</p>
+                <a href="#" className="btn btn-primary">
+                  Do Something
+                </a>
+              </div>
             </div>
             <div className="card Heading">
-              <div className="card-img-top">{/* Card content */}</div>
+              <img src="..." className="card-img-top" alt="..."></img>
+              <div className="card-body">
+                <h5 className="card-title"> Card Title</h5>
+                <p className="card-text"> Some more example text</p>
+                <a href="#" className="btn btn-primary">
+                  Do Something
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="row justify-content-center">
-          <div className="card techStack">
-            <a href="#">
-              <img
-                id="techStack"
-                src="./src/assets/images/github.png"
-                alt="GitHub Logo"
-                className="img-fluid"
-              />
-            </a>
-          </div>
-          <div className="card techStack">
-            <a href="#">
-              <img
-                id="techStack"
-                src="./src/assets/images/JS.png"
-                alt="JavaScript Logo"
-                className="img-fluid"
-              />
-            </a>
-          </div>
-          <div className="card techStack">
-            <a
-              href="https://auth0.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                id="techStack"
-                src="./src/assets/images/auth0.png"
-                alt="Auth0 Logo"
-                className="img-fluid"
-              />
-            </a>
           </div>
         </div>
       </div>

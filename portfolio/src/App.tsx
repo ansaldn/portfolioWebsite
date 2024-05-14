@@ -5,6 +5,7 @@ import "./App.css";
 import Nav from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import MainBody from "./components/MainBody";
+import UnderBody from "./components/UnderBody";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,7 +16,10 @@ function App() {
       <br></br>
       <div>
         <MainBody />
+        <br></br>
+        <UnderBody />
       </div>
+
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
