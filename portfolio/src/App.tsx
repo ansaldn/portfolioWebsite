@@ -2,25 +2,23 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import "./components/NavBar.css";
 import Nav from "./components/Navbar";
-import "bootstrap/dist/css/bootstrap.css";
 import MainBody from "./components/MainBody";
 import UnderBody from "./components/UnderBody";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Nav />
-      <br></br>
       <div>
-        <MainBody />
+        <Nav />
         <br></br>
-        <UnderBody />
       </div>
 
-      <div>
+      {/*       <div className="container">
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -39,7 +37,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   );
 }
