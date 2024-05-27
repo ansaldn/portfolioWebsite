@@ -17,14 +17,14 @@ import { Auth0Provider } from "@auth0/auth0-react";
   </Auth0Provider>
 ); */
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Auth0Provider
-    domain="dev-ljarqqxtl07wecwz.us.auth0.com"
-    clientId="yaMlPbWX7bAzrL6zTZflnBNklk4i4uKk"
-    authorizationParams={{redirect_uri: window.location.origin}}>
+      domain="dev-ljarqqxtl07wecwz.us.auth0.com"
+      clientId="yaMlPbWX7bAzrL6zTZflnBNklk4i4uKk"
+      authorizationParams={{ redirect_uri: window.location.origin }}
+    >
       <App />
     </Auth0Provider>
-  </React.StrictMode>,
-)
-
+  </React.StrictMode>
+);
