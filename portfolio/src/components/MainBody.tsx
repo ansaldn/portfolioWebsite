@@ -45,7 +45,7 @@ const MainBody: React.FC = () => {
         <div>
           <video autoPlay muted loop playsInline id="MainBodyVideo">
             <source
-              src="./src/assets/videos/websiteVideoBackground.mp4"
+              src="./assets/videos/websiteVideoBackground.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -56,6 +56,7 @@ const MainBody: React.FC = () => {
           </h1>
         </div>
       </section>
+      <br></br>
       <section>
         <div className="container">
           <div className="row">
