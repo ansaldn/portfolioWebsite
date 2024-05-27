@@ -32,12 +32,10 @@
   align-items: center;
 }
 
-/* #techStack {
-  width: 100%;
-  height: auto;
+#techStack:hover {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-} */
+} 
 
 #techStack img:hover {
   transform: translate3d(0, -.125rem, 0);

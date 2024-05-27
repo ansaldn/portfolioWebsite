@@ -2,6 +2,11 @@ import "bootstrap/dist/css/bootstrap.css";
 
 function UnderBody() {
   return (
+    <>
+    <hr className="dotted"></hr>
+    <div className="UnderBody Heading">
+      <h2> This website was created with the following TechStack.</h2>
+    </div>
     <div className="container">
       <div className="row justify-content-center">
         <div className="col techStack">
@@ -36,6 +41,7 @@ function UnderBody() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -43,7 +43,7 @@ const MainBody: React.FC = () => {
     <>
       <section className="MainBodyContainer" id="MainBodyOpening">
         <div>
-          <video autoPlay muted loop id="MainBodyVideo">
+          <video autoPlay muted loop playsInline id="MainBodyVideo">
             <source
               src="./src/assets/videos/websiteVideoBackground.mp4"
               type="video/mp4"
