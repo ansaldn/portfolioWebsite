@@ -4,7 +4,7 @@ function Footer() {
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <img
-            src="./src/assets/images/Memoji.png"
+            src="./assets/images/Memoji.png"
             alt="Logo"
             width={20}
             height={20}

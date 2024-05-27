@@ -13,7 +13,7 @@ function NavBar() {
         <div className="container-fluid">
           <a className="navbar-brand" href="https://google.com" target="_blank">
             <img
-              src="./src/assets/images/Memoji.png"
+              src="./assets/images/Memoji.png"
               alt="Logo"
               width={50}
               height={50}
@@ -43,7 +43,7 @@ function NavBar() {
                 >
                   LinkedIn
                   <img
-                    src="./src/assets/images/OpenInNewTab.svg"
+                    src="./assets/images/OpenInNewTab.svg"
                     className="OpenTabIcon"
                     id="OpenTabIcon"
                     alt="Opens in a New Tab"
@@ -56,7 +56,7 @@ function NavBar() {
                 <a
                   className="nav-link"
                   id="nav-linkServices"
-                  href="./src/"
+                  href="./Services/"
                   target=""
                   rel="noopener noreferrer"
                 >
