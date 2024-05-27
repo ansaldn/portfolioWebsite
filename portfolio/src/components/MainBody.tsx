@@ -81,7 +81,7 @@ const MainBody: React.FC = () => {
               </div>
             </div>
             <div className="card Heading col-md-4">
-              <img src="..." className="card-img-top" alt="..." />
+              <img src="./assets/404.png" className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">Card Title</h5>
                 <p className="card-text">Some more example text</p>
