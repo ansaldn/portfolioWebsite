@@ -7,6 +7,7 @@ import Nav from "./components/Navbar";
 import MainBody from "./components/MainBody";
 import UnderBody from "./components/UnderBody";
 import "bootstrap/dist/css/bootstrap.css";
+import Footer from "./components/Footer";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,6 +16,9 @@ function App() {
     <>
       <div>
         <Nav />
+        <MainBody />
+        <UnderBody />
+        <Footer />
         <br></br>
       </div>
 
