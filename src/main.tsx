@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+// Vite environment variables using "import.meta.env"
+const domain = import.meta.env.VITE_AUTH0_DOMAIN || "";
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID || "";
+
+// Throw an error if the environment variables are missing
+if (!domain || !clientId) {
+  throw new Error("Missing Auth0 domain or clientId in environment variables");
+}
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
