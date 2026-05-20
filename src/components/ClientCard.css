@@ -43,17 +43,9 @@
 .client-card__monogram {
   width: 56px;
   height: 56px;
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--sector, var(--accent-cyan));
-  color: var(--sector, var(--accent-cyan));
-  background: rgba(255,255,255,0.02);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
 }
 
 .client-card__head-text { min-width: 0; }

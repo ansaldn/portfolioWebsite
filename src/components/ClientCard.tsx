@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Client, ClientSector } from "../data/clients";
+import ClientLogo from "./ClientLogo";
 import "./ClientCard.css";
 
 const sectorColor: Record<ClientSector, string> = {
@@ -13,15 +14,6 @@ const sectorColor: Record<ClientSector, string> = {
   SaaS: "var(--sector-saas)",
   Consumer: "var(--sector-consumer)",
 };
-
-const monogram = (name: string) =>
-  name
-    .split(/[^a-zA-Z]+/)
-    .filter(Boolean)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
 
 interface Props {
   client: Client;
@@ -51,7 +43,7 @@ const ClientCard = ({ client, defaultOpen = false }: Props) => {
         onClick={() => setOpen((o) => !o)}
       >
         <div className="client-card__monogram" aria-hidden="true">
-          {monogram(c.company)}
+          <ClientLogo client={c} size={56} />
         </div>
 
         <div className="client-card__head-text">

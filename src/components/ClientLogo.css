@@ -1,0 +1,33 @@
+.client-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* "card" variant — boxed with sector-coloured border */
+.client-logo--card {
+  border: 1.5px solid;
+  border-radius: var(--radius-md);
+}
+
+/* "plain" variant — used in the hero face where the surrounding card already has chrome */
+.client-logo--plain {
+  background: transparent;
+}
+
+/* image-mode tweaks: contain image, neutralise residual padding */
+.client-logo--img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8%;
+  /* Most monochrome SVGs use currentColor; default to sector colour so they
+     pick up the right tint. Full-colour images override this naturally. */
+  color: var(--sector, var(--accent-cyan));
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+}

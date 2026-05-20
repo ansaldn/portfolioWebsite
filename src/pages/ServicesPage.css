@@ -109,6 +109,32 @@
 }
 .service-card__proof-link:hover { text-decoration: underline; }
 
+.service-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid var(--border-accent);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  align-self: flex-start;
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.service-card__cta:hover {
+  background: rgba(34, 211, 238, 0.16);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateX(2px);
+}
+
 /* -------- Engagement model -------- */
 .engagement {
   list-style: none;

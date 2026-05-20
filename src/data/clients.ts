@@ -36,6 +36,12 @@ export interface Client {
   projects: ProjectGroup[];
   /** Optional pinned ribbon (e.g. "M&A", "FedRAMP", "Okta SME"). */
   ribbons?: string[];
+  /**
+   * Optional path to a logo file in /public/logos/, e.g. "/logos/epic-games.svg".
+   * If absent, the UI falls back to a coloured monogram (e.g. "EG").
+   * See /public/logos/README.md for guidance on sourcing brand-safe SVGs.
+   */
+  logo?: string;
 }
 
 export const clients: Client[] = [
@@ -56,6 +62,7 @@ export const clients: Client[] = [
     ],
     stack: ["Okta", "SailPoint IdentityNow", "Azure AD", "PAM", "SSO", "Governance"],
     ribbons: ["Okta SME", "Global IAM"],
+    logo: "/logos/epic-games.svg",
     projects: [
       {
         title: "Lifecycle & governance",
@@ -106,6 +113,7 @@ export const clients: Client[] = [
     ],
     stack: ["Okta", "Okta Identity Governance (OIG)", "SSO", "M&A Integration", "Vendor Mgmt"],
     ribbons: ["M&A", "Okta SME", "Defence-adjacent"],
+    logo: "/logos/hitachi-rail.svg",
     projects: [
       {
         title: "Project 1 — Construction acquisition",
@@ -157,6 +165,7 @@ export const clients: Client[] = [
       "RBAC",
     ],
     ribbons: ["Okta SME", "Endpoint Security"],
+    logo: "/logos/babbel.svg",
     projects: [
       {
         title: "Identity modernisation",
@@ -203,6 +212,7 @@ export const clients: Client[] = [
     ],
     stack: ["Microsoft Entra", "SailPoint", "Windows Defender", "SSO", "SCIM"],
     ribbons: ["Corporate restructure"],
+    logo: "/logos/ki-insurance.svg",
     projects: [
       {
         title: "Identity modernisation",
@@ -247,6 +257,7 @@ export const clients: Client[] = [
     ],
     stack: ["SOC 2 Type II", "FedRAMP", "MDM", "EDR", "Windows Defender (macOS)", "GRC"],
     ribbons: ["FedRAMP", "SOC 2 Type II", "Government-ready"],
+    logo: "/logos/lifebit.svg",
     projects: [
       {
         title: "SOC 2 Type II",
@@ -302,6 +313,7 @@ export const clients: Client[] = [
       "DLP",
     ],
     ribbons: ["M&A", "Okta SME", "Acquired by Etsy"],
+    logo: "/logos/depop.svg",
     projects: [
       {
         title: "Identity & access",
@@ -365,6 +377,7 @@ export const clients: Client[] = [
       "Active Directory",
     ],
     ribbons: ["Okta SME", "AWS / Terraform"],
+    logo: "/logos/convatec.svg",
     projects: [
       {
         title: "Identity & SSO",
@@ -422,6 +435,7 @@ export const clients: Client[] = [
       "Azure AD",
     ],
     ribbons: ["DevOps"],
+    logo: "/logos/paddle.svg",
     projects: [
       {
         title: "IT operations",
@@ -458,6 +472,7 @@ export const clients: Client[] = [
       "Set up new office space network end-to-end (Ubiquiti)",
     ],
     stack: ["Jamf", "Google Workspace", "Ubiquiti", "Slack"],
+    logo: "/logos/memrise.svg",
     projects: [
       {
         title: "Support & deployment",
@@ -494,6 +509,7 @@ export const clients: Client[] = [
       "Customer-facing iOS, iPadOS, and macOS troubleshooting",
     ],
     stack: ["iOS", "iPadOS", "macOS", "Customer support"],
+    logo: "/logos/apple.svg",
     projects: [
       {
         title: "Customer support",

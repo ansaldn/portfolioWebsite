@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { clients, type ClientSector } from "../data/clients";
+import ClientLogo from "./ClientLogo";
 import "./ClientsCarousel.css";
 
 const sectorColor: Record<ClientSector, string> = {
@@ -15,23 +16,13 @@ const sectorColor: Record<ClientSector, string> = {
   Consumer: "var(--sector-consumer)",
 };
 
-/** Two-character monogram from a company name (e.g. "Epic Games" -> "EG"). */
-const monogram = (name: string) =>
-  name
-    .split(/[^a-zA-Z]+/)
-    .filter(Boolean)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
 const ClientsCarousel = () => {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   const scrollBy = (dir: 1 | -1) => {
     const el = trackRef.current;
     if (!el) return;
-    const card = el.querySelector<HTMLElement>(".clients-carousel__card");
+    const card = el.querySelector<HTMLElement>(".client-tile");
     const distance = card ? card.offsetWidth + 24 : el.offsetWidth * 0.8;
     el.scrollBy({ left: distance * dir, behavior: "smooth" });
   };
@@ -39,46 +30,66 @@ const ClientsCarousel = () => {
   return (
     <div className="clients-carousel">
       <div className="clients-carousel__track" ref={trackRef}>
-        {clients.map((c) => (
-          <Link
-            key={c.slug}
-            to={`/clients#${c.slug}`}
-            className="clients-carousel__card surface-card"
-            aria-label={`${c.company} — ${c.role}`}
-          >
-            <div
-              className="clients-carousel__stripe"
-              style={{ background: sectorColor[c.sector] }}
-              aria-hidden="true"
-            />
-            <div className="clients-carousel__head">
-              <div
-                className="clients-carousel__monogram"
-                style={{ borderColor: sectorColor[c.sector], color: sectorColor[c.sector] }}
-                aria-hidden="true"
-              >
-                {monogram(c.company)}
+        {clients.map((c) => {
+          const color = sectorColor[c.sector];
+          return (
+            <Link
+              key={c.slug}
+              to={`/clients#${c.slug}`}
+              className="client-tile surface-card"
+              style={{ ["--sector" as string]: color }}
+              aria-label={`Open case study for ${c.company}`}
+            >
+              {/* Top stripe — always visible, sector colour */}
+              <div className="client-tile__stripe" aria-hidden="true" />
+
+              {/* FACE — what's visible by default */}
+              <div className="client-tile__face">
+                <ClientLogo client={c} size={72} />
+                <div className="client-tile__face-text">
+                  <div className="client-tile__sector">{c.sector}</div>
+                  <div className="client-tile__company">{c.company}</div>
+                </div>
+                <div className="client-tile__hint" aria-hidden="true">
+                  Hover for details
+                </div>
               </div>
-              <div>
-                <div className="clients-carousel__sector">{c.sector}</div>
-                <div className="clients-carousel__company">{c.company}</div>
+
+              {/* DETAILS — revealed on hover/focus (always visible on touch) */}
+              <div className="client-tile__details">
+                <div className="client-tile__details-head">
+                  <div className="client-tile__role">{c.role}</div>
+                  <div className="client-tile__dates">
+                    {c.start} – {c.end}  ·  {c.location}
+                  </div>
+                </div>
+
+                <p className="client-tile__headline">{c.headline}</p>
+
+                {c.ribbons && c.ribbons.length > 0 && (
+                  <div className="client-tile__ribbons">
+                    {c.ribbons.slice(0, 2).map((r) => (
+                      <span key={r} className="client-tile__ribbon">{r}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="client-tile__tags">
+                  {c.stack.slice(0, 4).map((s) => (
+                    <span key={s} className="tag">{s}</span>
+                  ))}
+                  {c.stack.length > 4 && (
+                    <span className="tag tag--accent">+{c.stack.length - 4}</span>
+                  )}
+                </div>
+
+                <span className="client-tile__cta">
+                  View case study  →
+                </span>
               </div>
-            </div>
-            <div className="clients-carousel__role">{c.role}</div>
-            <div className="clients-carousel__dates">
-              {c.start} – {c.end}  ·  {c.location}
-            </div>
-            <p className="clients-carousel__headline">{c.headline}</p>
-            <div className="clients-carousel__tags">
-              {c.stack.slice(0, 4).map((s) => (
-                <span key={s} className="tag">{s}</span>
-              ))}
-              {c.stack.length > 4 && (
-                <span className="tag tag--accent">+{c.stack.length - 4}</span>
-              )}
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="clients-carousel__controls">

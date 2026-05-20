@@ -1,9 +1,16 @@
+/* =============================================================
+   Reactive client tile (home page) — logo + name by default,
+   details slide up on hover or focus. Touch devices (no :hover
+   capability) get the details visible by default so the page
+   still works without a pointer.
+   ============================================================= */
+
 .clients-carousel { position: relative; }
 
 .clients-carousel__track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 320px);
+  grid-auto-columns: minmax(280px, 300px);
   gap: 1.5rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -19,104 +26,228 @@
   border-radius: 999px;
 }
 
-.clients-carousel__card {
+/* -------- The tile itself -------- */
+.client-tile {
   position: relative;
   scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: 1.5rem 1.4rem 1.4rem;
+  display: block;
+  min-height: 320px;
+  padding: 0;
   text-decoration: none;
   color: inherit;
   overflow: hidden;
   isolation: isolate;
+  transition:
+    transform var(--dur-med) var(--ease),
+    box-shadow var(--dur-med) var(--ease),
+    border-color var(--dur-med) var(--ease);
 }
-.clients-carousel__card:hover { color: inherit; }
-.clients-carousel__card::after {
-  content: "→";
-  position: absolute;
-  top: 1rem;
-  right: 1.1rem;
-  font-size: 1.1rem;
-  color: var(--fg-muted);
-  transition: transform var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+.client-tile:hover,
+.client-tile:focus-visible {
+  color: inherit;
+  transform: translateY(-2px);
 }
-.clients-carousel__card:hover::after {
-  color: var(--accent-cyan);
-  transform: translateX(2px);
+.client-tile:focus-visible {
+  outline: 2px solid var(--sector, var(--accent-cyan));
+  outline-offset: 4px;
 }
 
-.clients-carousel__stripe {
+/* Sector-coloured top stripe */
+.client-tile__stripe {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  opacity: 0.9;
+  background: var(--sector, var(--accent-cyan));
+  z-index: 3;
 }
 
-.clients-carousel__head {
+/* -------- FACE (always visible by default) -------- */
+.client-tile__face {
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.25rem;
-}
-.clients-carousel__monogram {
-  width: 44px;
-  height: 44px;
-  border: 1.5px solid;
-  border-radius: var(--radius-md);
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  background: rgba(255,255,255,0.02);
-  flex-shrink: 0;
+  gap: 0.85rem;
+  padding: 2rem 1.5rem 1.25rem;
+  text-align: center;
+  z-index: 1;
+  transition:
+    opacity var(--dur-med) var(--ease),
+    transform var(--dur-med) var(--ease);
 }
-.clients-carousel__sector {
+
+.client-tile__face-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0.25rem;
+}
+.client-tile__sector {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--fg-muted);
+  color: var(--sector, var(--fg-muted));
+  opacity: 0.85;
 }
-.clients-carousel__company {
-  font-size: 1.05rem;
+.client-tile__company {
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--fg-primary);
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
-.clients-carousel__role {
-  color: var(--fg-primary);
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-.clients-carousel__dates {
+
+.client-tile__hint {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  opacity: 0.7;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+/* -------- DETAILS (overlay revealed on hover) -------- */
+.client-tile__details {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.35rem 1.35rem 1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 28, 0.0) 0%,
+    rgba(10, 15, 28, 0.78) 22%,
+    rgba(10, 15, 28, 0.94) 50%,
+    rgba(10, 15, 28, 0.97) 100%
+  );
+  /* Default state for hover-capable browsers: hidden */
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-med) var(--ease),
+    transform var(--dur-med) var(--ease);
+  justify-content: flex-end;
+}
+
+.client-tile__details-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.client-tile__role {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fg-primary);
+  line-height: 1.3;
+}
+.client-tile__dates {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   color: var(--fg-muted);
 }
-.clients-carousel__headline {
-  color: var(--fg-secondary);
-  font-size: 0.92rem;
+
+.client-tile__headline {
+  margin: 0;
+  font-size: 0.88rem;
   line-height: 1.5;
-  margin: 0.25rem 0 0.5rem;
+  color: var(--fg-secondary);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.clients-carousel__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
+
+.client-tile__ribbons { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.client-tile__ribbon {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  color: var(--sector, var(--accent-cyan));
+  background: color-mix(in srgb, var(--sector, var(--accent-cyan)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sector, var(--accent-cyan)) 35%, transparent);
 }
 
+.client-tile__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.client-tile__tags .tag { font-size: 0.68rem; padding: 0.22rem 0.5rem; }
+
+.client-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--sector, var(--accent-cyan));
+  letter-spacing: 0.02em;
+}
+
+/* -------- Hover / focus reveal (only on hover-capable devices) -------- */
+@media (hover: hover) {
+  .client-tile:hover .client-tile__details,
+  .client-tile:focus-within .client-tile__details {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .client-tile:hover .client-tile__face,
+  .client-tile:focus-within .client-tile__face {
+    /* keep the logo recognisable behind the scrim, but fade name + hint */
+    opacity: 0.18;
+    transform: translateY(-8px) scale(0.96);
+  }
+  .client-tile:hover .client-tile__hint {
+    opacity: 0;
+  }
+}
+
+/* -------- Touch fallback (no hover): details visible by default -------- */
+@media (hover: none) {
+  .client-tile { min-height: 380px; }
+  .client-tile__face {
+    /* Compact the face to the top — leave room for details below */
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+  }
+  .client-tile__hint { display: none; }
+  .client-tile__details {
+    /* Pin to lower half, always visible */
+    position: absolute;
+    top: auto;
+    height: 62%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 15, 28, 0.0) 0%,
+      rgba(10, 15, 28, 0.92) 14%,
+      rgba(10, 15, 28, 0.97) 100%
+    );
+  }
+}
+
+/* -------- Controls under the carousel -------- */
 .clients-carousel__controls {
   display: flex;
   justify-content: flex-end;
