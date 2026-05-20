@@ -1,0 +1,233 @@
+.contact-page { padding: 4rem 0 6rem; }
+
+.contact-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.contact-title { margin: 0.25rem 0 0; }
+.contact-lede {
+  margin: 0;
+  color: var(--fg-secondary);
+  max-width: 64ch;
+}
+
+.contact-required-marker {
+  color: var(--accent-rose);
+  font-weight: 700;
+}
+
+/* -------- Form layout -------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-fieldset {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.contact-legend {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  padding: 0 0.5rem;
+  margin-left: -0.5rem;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 640px) {
+  .contact-row { grid-template-columns: 1fr; }
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.contact-label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--fg-primary);
+}
+.contact-hint {
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--fg-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--fg-muted);
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
+}
+
+.contact-form select {
+  /* let the OS render the dropdown chevron but tighten spacing */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%2322D3EE' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.25rem;
+}
+
+/* -------- Checks / radios -------- */
+.contact-checks,
+.contact-radios {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 0.75rem;
+  margin-top: 0.4rem;
+}
+@media (max-width: 540px) {
+  .contact-checks,
+  .contact-radios { grid-template-columns: 1fr; }
+}
+
+.contact-check,
+.contact-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  font-size: 0.92rem;
+  color: var(--fg-secondary);
+}
+.contact-check:hover,
+.contact-radio:hover {
+  border-color: var(--accent-cyan);
+  color: var(--fg-primary);
+}
+.contact-check input,
+.contact-radio input {
+  accent-color: var(--accent-cyan);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.contact-check:has(input:checked),
+.contact-radio:has(input:checked) {
+  border-color: var(--accent-cyan);
+  background: rgba(34, 211, 238, 0.08);
+  color: var(--fg-primary);
+}
+
+/* -------- Consent / submit / error -------- */
+.contact-consent {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.contact-consent input {
+  accent-color: var(--accent-cyan);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.contact-error {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(251, 113, 133, 0.08);
+  border: 1px solid rgba(251, 113, 133, 0.4);
+  color: var(--accent-rose);
+}
+
+.contact-fallback-note {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  background: rgba(251, 191, 36, 0.06);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.contact-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+.contact-submit-aside {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+/* honeypot — visually + assistive-tech hidden */
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* -------- Success state -------- */
+.contact-success { padding-top: 2rem; }
+.contact-success__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 3rem 2rem;
+}
+.contact-success__icon { margin-bottom: 0.5rem; }
+.contact-success__text {
+  margin: 0;
+  color: var(--fg-secondary);
+  max-width: 52ch;
+}

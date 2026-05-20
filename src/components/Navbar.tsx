@@ -62,6 +62,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/services" onClick={() => setOpen(false)}>
+                Services
+              </NavLink>
+            </li>
+            <li>
               <a
                 href="https://linkedin.com/in/davidansa"
                 target="_blank"
@@ -73,12 +78,13 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <a
+          <NavLink
+            to="/contact"
             className="btn btn-primary site-nav__cta"
-            href="mailto:davidansa00@gmail.com"
+            onClick={() => setOpen(false)}
           >
             Get in touch
-          </a>
+          </NavLink>
         </div>
       </div>
     </nav>

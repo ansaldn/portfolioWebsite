@@ -20,11 +20,11 @@
                img-src 'self' data:;
                media-src 'self';
                font-src 'self' data:;
-               connect-src 'self' https://%VITE_AUTH0_DOMAIN%;
+               connect-src 'self' https://%VITE_AUTH0_DOMAIN% https://formspree.io;
                frame-src https://%VITE_AUTH0_DOMAIN%;
                object-src 'none';
                base-uri 'self';
-               form-action 'self';
+               form-action 'self' https://formspree.io;
                upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />

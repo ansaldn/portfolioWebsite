@@ -17,7 +17,8 @@ const Footer = () => {
         <nav className="site-footer__nav" aria-label="Footer">
           <Link to="/">Home</Link>
           <Link to="/clients">Clients</Link>
-          <a href="mailto:davidansa00@gmail.com">Contact</a>
+          <Link to="/services">Services</Link>
+          <Link to="/contact">Contact</Link>
           <a
             href="https://linkedin.com/in/davidansa"
             target="_blank"
