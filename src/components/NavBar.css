@@ -1,35 +1,133 @@
-#NavigationBar {
-  margin: 0 auto;
-  min-width: 100%;
-  color: blue;
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  transition: background var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.site-nav.is-scrolled {
+  background: rgba(10, 15, 28, 0.72);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom-color: var(--border-subtle);
 }
 
-nav.navbar.navbar-expand-lg.bg-body-tertiary {
-  color: black;
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
 }
 
-.container-fluid{
-
+.site-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--fg-primary);
 }
-.navbar-brand {
-  color: aqua;
+.site-nav__brand:hover { color: var(--fg-primary); }
+.site-nav__brand-img {
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  padding: 2px;
+}
+.site-nav__brand-text { display: flex; flex-direction: column; line-height: 1; }
+.site-nav__brand-name { font-weight: 700; letter-spacing: -0.01em; }
+.site-nav__brand-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
 }
 
-#nav-linkLinkedIn .OpenTabIcon {
-  opacity: 0;
-  margin: -5px;
+.site-nav__toggler {
+  display: none;
+  width: 40px;
+  height: 36px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.site-nav__toggler span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--fg-primary);
+  transition: transform var(--dur-fast) var(--ease);
 }
 
-#nav-linkLinkedIn:hover .OpenTabIcon {
-  opacity: 1;
-  margin-left: 5px;
-  transition: .7s ease-in;
-  vertical-align: top;
+.site-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.site-nav__links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+.site-nav__links a {
+  display: inline-block;
+  padding: 0.4rem 0.2rem;
+  color: var(--fg-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+}
+.site-nav__links a:hover { color: var(--fg-primary); }
+.site-nav__links a.active {
+  color: var(--accent-cyan);
+}
+.site-nav__links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+  border-radius: 999px;
 }
 
-#nav-linkLinkedIn:not(:hover) .OpenTabIcon {
-  transition: .7s ease-out;
-  vertical-align: top;
-  opacity: 0;
-  margin: -5px;
+.site-nav__cta { white-space: nowrap; }
+
+@media (max-width: 820px) {
+  .site-nav__toggler { display: inline-flex; }
+  .site-nav__menu {
+    position: absolute;
+    inset: 100% 0 auto 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem 1.25rem 1.25rem;
+    background: rgba(10, 15, 28, 0.96);
+    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transform: translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .site-nav__menu.is-open {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .site-nav__links {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .site-nav__cta { width: 100%; }
 }

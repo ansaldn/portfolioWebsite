@@ -1,90 +1,88 @@
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+import { useEffect, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import "./NavBar.css";
-import "bootstrap/dist/css/bootstrap.css";
 
-function NavBar() {
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <>
-      <nav
-        className="navbar navbar-expand-lg bg-body-tertiary"
-        id="NavigationBar"
-      >
-        <div className="container-fluid">
-          <a className="navbar-brand" href="https://google.com" target="_blank">
-            <img
-              src="./assets/images/Memoji.png"
-              alt="Logo"
-              width={50}
-              height={50}
-            ></img>
-            David Ansa
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  id="nav-linkLinkedIn"
-                  href="https://linkedin.com/in/davidansa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                  <img
-                    src="./assets/images/OpenInNewTab.png"
-                    className="OpenTabIcon"
-                    id="OpenTabIcon"
-                    alt="Opens in a New Tab"
-                    width={12}
-                    height={12}
-                  ></img>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  id="nav-linkServices"
-                  href="./Services/"
-                  target=""
-                  rel="noopener noreferrer"
-                >
-                  {" "}
-                  Services
-                </a>
-              </li>
-            </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              ></input>
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <div>
-              <LoginButton />
-              <LogoutButton />
-            </div>
-          </div>
-        </div>
-      </nav>
-    </>
-  );
-}
+    <nav
+      className={`site-nav ${scrolled ? "is-scrolled" : ""}`}
+      id="NavigationBar"
+      aria-label="Primary"
+    >
+      <div className="site-nav__inner container-narrow">
+        <Link to="/" className="site-nav__brand" onClick={() => setOpen(false)}>
+          <img
+            src="/assets/images/Memoji.png"
+            alt=""
+            aria-hidden="true"
+            width={36}
+            height={36}
+            className="site-nav__brand-img"
+          />
+          <span className="site-nav__brand-text">
+            <span className="site-nav__brand-name">David Ansa</span>
+            <span className="site-nav__brand-tag">cyber · iam · cloud</span>
+          </span>
+        </Link>
 
-export default NavBar;
+        <button
+          type="button"
+          className="site-nav__toggler"
+          aria-expanded={open}
+          aria-controls="site-nav-menu"
+          aria-label="Toggle navigation"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span /><span /><span />
+        </button>
+
+        <div
+          id="site-nav-menu"
+          className={`site-nav__menu ${open ? "is-open" : ""}`}
+        >
+          <ul className="site-nav__links">
+            <li>
+              <NavLink to="/" end onClick={() => setOpen(false)}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/clients" onClick={() => setOpen(false)}>
+                Clients
+              </NavLink>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/in/davidansa"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+              >
+                LinkedIn ↗
+              </a>
+            </li>
+          </ul>
+
+          <a
+            className="btn btn-primary site-nav__cta"
+            href="mailto:davidansa00@gmail.com"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

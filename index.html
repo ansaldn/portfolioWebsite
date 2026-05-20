@@ -2,12 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/assets/images/Memoji.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>David Ansa Portfolio</title>
+
+    <!--
+      Content Security Policy (defense-in-depth XSS mitigation).
+      Set via <meta> because GitHub Pages can't send custom HTTP headers.
+      When migrating to CloudFront, move this to a Response Headers Policy
+      and ALSO add: X-Content-Type-Options, Strict-Transport-Security,
+      X-Frame-Options (or frame-ancestors), Permissions-Policy, COOP/COEP.
+      The Auth0 domain comes from %VITE_AUTH0_DOMAIN% at build time.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               script-src 'self';
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data:;
+               media-src 'self';
+               font-src 'self' data:;
+               connect-src 'self' https://%VITE_AUTH0_DOMAIN%;
+               frame-src https://%VITE_AUTH0_DOMAIN%;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- SEO + social -->
+    <title>David Ansa | Cybersecurity, AWS &amp; CIAM Portfolio</title>
+    <meta
+      name="description"
+      content="David Ansa — cybersecurity and cloud engineer. Portfolio of AWS Security, CIAM (Auth0), and identity work for commercial and government clients."
+    />
+    <meta name="author" content="David Ansa" />
+    <meta property="og:title" content="David Ansa | Cybersecurity, AWS &amp; CIAM Portfolio" />
+    <meta property="og:description" content="Cybersecurity and cloud engineer. Portfolio of AWS Security, CIAM (Auth0), and identity work." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://davidansa.com/" />
+    <meta property="og:image" content="https://davidansa.com/assets/images/Memoji.png" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="canonical" href="https://davidansa.com/" />
+    <link rel="icon" type="image/png" href="/assets/images/Memoji.png" />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

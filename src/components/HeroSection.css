@@ -1,0 +1,113 @@
+.hero {
+  padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.hero__copy { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.hero__title {
+  margin: 0.25rem 0 0;
+  font-weight: 800;
+}
+.hero__title-accent {
+  background: linear-gradient(120deg, var(--accent-cyan) 0%, var(--accent-green) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__lede {
+  font-size: 1.125rem;
+  color: var(--fg-secondary);
+  max-width: 56ch;
+  margin: 0;
+}
+.hero__lede strong { color: var(--fg-primary); font-weight: 600; }
+
+.hero__cta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+@media (max-width: 540px) {
+  .hero__stats { grid-template-columns: 1fr 1fr; }
+}
+.hero__stat { display: flex; flex-direction: column; gap: 0.15rem; }
+.hero__stat-value {
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.hero__stat-label {
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Terminal visual ---- */
+.hero__visual { display: flex; justify-content: center; }
+.hero__terminal {
+  width: 100%;
+  max-width: 480px;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0E1729 0%, #0A1224 100%);
+}
+.hero__terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.hero__dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+.hero__terminal-title {
+  margin-left: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+.hero__terminal-body {
+  margin: 0;
+  padding: 1.25rem 1.4rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--fg-secondary);
+  white-space: pre-wrap;
+}
+.hero__terminal-body::selection { background: rgba(34,211,238,0.25); }
