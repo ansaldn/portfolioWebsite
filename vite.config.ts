@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: "/portfolioWebsite/",  // Adjusted for GitHub Pages
+  base: "/",  // Custom domain (davidansa.com) serves from root
   build: {
     outDir: 'dist',  // Output to "dist" directory
     rollupOptions: {
