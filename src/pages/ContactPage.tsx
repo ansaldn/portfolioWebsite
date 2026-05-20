@@ -192,7 +192,7 @@ const ContactPage = () => {
       setErrorMsg(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Please email davidansa00@gmail.com directly."
+          : "Something went wrong. Please email me directly using the link below."
       );
     }
   };
@@ -226,9 +226,9 @@ const ContactPage = () => {
               within two working days — usually faster.
             </p>
             <p className="contact-success__text">
-              If it's urgent, you can also reach me at{" "}
-              <a href="mailto:davidansa00@gmail.com">davidansa00@gmail.com</a>{" "}
-              or via{" "}
+              If it's urgent, you can also{" "}
+              <a href="mailto:davidansa00@gmail.com">email me directly</a>{" "}
+              or message me on{" "}
               <a
                 href="https://linkedin.com/in/davidansa"
                 target="_blank"
@@ -478,7 +478,7 @@ const ContactPage = () => {
             {status === "submitting" ? "Sending…" : "Send pre-boarding brief"}
           </button>
           <span className="contact-submit-aside">
-            Or email <a href="mailto:davidansa00@gmail.com">davidansa00@gmail.com</a>
+            Or <a href="mailto:davidansa00@gmail.com">email me directly</a>
           </span>
         </div>
       </form>
