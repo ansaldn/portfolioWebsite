@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Client, ClientSector } from "../data/clients";
+import { clientLogos } from "../data/logos";
 import "./ClientLogo.css";
 
 const sectorColor: Record<ClientSector, string> = {
@@ -32,17 +33,40 @@ interface Props {
 }
 
 /**
- * Renders a client logo when `client.logo` resolves to a real file, otherwise
- * gracefully falls back to a sector-coloured monogram. We don't ship logo
- * files in the repo by default (see /public/logos/README.md) — if the file is
- * missing the onError handler swaps in the monogram, so the UI never breaks.
+ * Three-tier render strategy:
+ *   1. Look up a curated React SVG mark in `clientLogos` by slug. These are
+ *      our hand-authored stylised silhouettes — they inherit `currentColor`
+ *      so each card paints in its sector colour.
+ *   2. If no curated mark, but `client.logo` is set, render a plain <img>.
+ *      That's the escape hatch for ever dropping raster files into
+ *      /public/logos/ later. The onError handler degrades gracefully.
+ *   3. Fall back to a sector-tinted monogram (e.g. "EG").
  */
 const ClientLogo = ({ client, size = 56, variant = "card" }: Props) => {
   const [imgFailed, setImgFailed] = useState(false);
   const color = sectorColor[client.sector];
-  const hasLogo = Boolean(client.logo) && !imgFailed;
 
-  if (hasLogo) {
+  const InlineLogo = clientLogos[client.slug];
+
+  // Tier 1 — inline React SVG (preferred)
+  if (InlineLogo) {
+    return (
+      <span
+        className={`client-logo client-logo--${variant} client-logo--mark`}
+        style={{
+          width: size,
+          height: size,
+          color,
+          borderColor: variant === "card" ? color : "transparent",
+        }}
+      >
+        <InlineLogo width={Math.round(size * 0.6)} height={Math.round(size * 0.6)} />
+      </span>
+    );
+  }
+
+  // Tier 2 — file-based logo
+  if (client.logo && !imgFailed) {
     return (
       <span
         className={`client-logo client-logo--${variant} client-logo--img`}
@@ -64,6 +88,7 @@ const ClientLogo = ({ client, size = 56, variant = "card" }: Props) => {
     );
   }
 
+  // Tier 3 — monogram fallback
   return (
     <span
       className={`client-logo client-logo--${variant} client-logo--mono`}

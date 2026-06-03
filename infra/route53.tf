@@ -16,9 +16,10 @@ locals {
 resource "aws_route53_record" "site_a" {
   for_each = toset(local.site_hostnames)
 
-  zone_id = data.aws_route53_zone.primary.zone_id
-  name    = each.value
-  type    = "A"
+  zone_id         = data.aws_route53_zone.primary.zone_id
+  name            = each.value
+  type            = "A"
+  allow_overwrite = true # cutover: replaces the existing apex A (GitHub Pages IPs)
 
   alias {
     name                   = aws_cloudfront_distribution.site.domain_name
@@ -30,9 +31,10 @@ resource "aws_route53_record" "site_a" {
 resource "aws_route53_record" "site_aaaa" {
   for_each = toset(local.site_hostnames)
 
-  zone_id = data.aws_route53_zone.primary.zone_id
-  name    = each.value
-  type    = "AAAA"
+  zone_id         = data.aws_route53_zone.primary.zone_id
+  name            = each.value
+  type            = "AAAA"
+  allow_overwrite = true # cutover: replaces any existing AAAA if present
 
   alias {
     name                   = aws_cloudfront_distribution.site.domain_name

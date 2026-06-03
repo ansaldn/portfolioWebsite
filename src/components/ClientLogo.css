@@ -31,3 +31,14 @@
   color: var(--sector, var(--accent-cyan));
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
 }
+
+/* Inline SVG mark — inherits currentColor from the parent .client-logo,
+   which is set to the sector colour via inline style. */
+.client-logo--mark {
+  /* parent already has border + sizing. SVG centres via flex on .client-logo */
+  background: rgba(255, 255, 255, 0.03);
+}
+.client-logo--mark svg {
+  display: block;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+}
