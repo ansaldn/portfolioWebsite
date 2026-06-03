@@ -1,0 +1,21 @@
+# Local Terraform state and cache — never commit.
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Personal variable files — never commit. Only the .example template is tracked.
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Override files (used for local development) — never commit.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Plan artefacts — never commit.
+*.tfplan

@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars (gitignored) and edit if any default needs overriding.
+# All variables here have sensible defaults in variables.tf — most users won't
+# need to set anything.
+
+# domain_name         = "davidansa.com"
+# aws_region          = "eu-west-2"
+# github_repo         = "ansaldn/portfolioWebsite"
+# github_branch       = "main"
+# rate_limit_per_5min = 2000

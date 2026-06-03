@@ -1,0 +1,101 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Concurrency: only one deploy at a time per branch. In-flight runs get
+# cancelled when a newer push lands.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege: id-token to mint OIDC, contents to checkout. Nothing else.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build, sync, invalidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check + build
+        run: npm run build
+        env:
+          # Surfaced at build time so CSP knows the Auth0 connect-src host.
+          # Public values; safe to commit. Set them as repo variables in
+          # Settings → Variables → Actions if/when used.
+          VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+          VITE_FORMSPREE_ENDPOINT: ${{ vars.VITE_FORMSPREE_ENDPOINT }}
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: gh-actions-${{ github.run_id }}
+
+      # Pass 1 — hashed assets get a year-long immutable cache.
+      - name: Sync /assets (immutable, 1y cache)
+        run: |
+          aws s3 sync dist/ "s3://${{ vars.AWS_SITE_BUCKET }}/" \
+            --delete \
+            --exclude "*" \
+            --include "assets/*" \
+            --cache-control "public, max-age=31536000, immutable" \
+            --no-progress
+
+      # Pass 2 — everything else (index.html, CNAME, logos, etc.) gets no-cache
+      # so users always pull the latest entry point. Two-pass approach is
+      # standard because `aws s3 sync` can't set per-pattern cache headers.
+      - name: Sync everything else (no-cache)
+        run: |
+          aws s3 sync dist/ "s3://${{ vars.AWS_SITE_BUCKET }}/" \
+            --delete \
+            --exclude "assets/*" \
+            --cache-control "no-cache, must-revalidate" \
+            --no-progress
+
+      - name: Invalidate CloudFront
+        run: |
+          ID=$(aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+          echo "Invalidation $ID created. Waiting for completion..."
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --id "$ID"
+          echo "Invalidation $ID complete."
+
+      - name: Smoke test
+        run: |
+          set -e
+          URL="https://davidansa.com"
+          echo "Smoke testing $URL ..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$URL")
+          if [ "$STATUS" != "200" ]; then
+            echo "Smoke test failed: got HTTP $STATUS from $URL"
+            exit 1
+          fi
+          echo "OK: HTTP $STATUS"
