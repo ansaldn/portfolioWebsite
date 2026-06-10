@@ -1,6 +1,8 @@
 # Security review — May 2026
 
-This document captures the security pass on `ansaldn/portfolioWebsite` after the davidansa.com cutover. It's split into: what was fixed in this pass, what you need to verify manually (Auth0, GitHub Pages), and what's deferred to the phase‑2 CloudFront migration.
+This document captures the original security pass on `ansaldn/portfolioWebsite`. It's split into: what was fixed in this pass, what you need to verify manually (Auth0), and hardening that has since been implemented on AWS.
+
+> **Hosting note:** the site now runs entirely on AWS (S3 + CloudFront + WAF), deployed via GitHub Actions on push to `main`. Some items below were originally written while the site was on static hosting without custom response headers; the "deferred" hardening they describe has since been delivered through the CloudFront response-headers policy in `infra/cloudfront.tf`. See the June 2026 section at the end for the current state.
 
 ## Findings fixed in this pass
 
@@ -36,7 +38,7 @@ Dev-only CVE that intentionally remains.
 
 - **Broken navbar brand link** — the brand element pointed to `https://google.com` (left over from scaffolding). Changed to `href="/"`.
 
-- **Services link href fixed** — was `./Services/` (case-sensitive 404 on GitHub Pages); now `/services` matching the React Router route.
+- **Services link href fixed** — was `./Services/` (case-sensitive 404 on static hosting); now `/services` matching the React Router route.
 
 ### Hardening — added
 
@@ -66,15 +68,13 @@ The Auth0 client ID `yaMlPbWX7bAzrL6zTZflnBNklk4i4uKk` and domain `dev-ljarqqxtl
 7. **Refresh Token Rotation.** Enable it, with reuse interval set to a few seconds.
 8. **Application Login URI.** Set to `https://davidansa.com`.
 
-If any of these is wide-open (e.g. wildcard origins, or the old Jekyll repo's URL still in the list), someone could initiate login flows in your name. **Lock these down before launch.**
+If any of these is wide-open (e.g. wildcard origins, or a stale/old URL still in the list), someone could initiate login flows in your name. **Lock these down before launch.**
 
-### GitHub Pages settings
+### Hosting hygiene
 
-After the CUTOVER steps:
-
-- Confirm `Enforce HTTPS` is enabled on the new repo.
-- Confirm only the `gh-pages` branch is the Pages source — no other branch.
-- On the **old** `da5905p/portfolio` repo, set Pages source to `None` so it cannot claim `davidansa.com` again.
+- TLS + HSTS are enforced at CloudFront (`viewer_protocol_policy = redirect-to-https`, minimum TLS 1.2_2021).
+- The S3 origin is private and only reachable via CloudFront (OAC); there is no public bucket URL to leak.
+- Deploys are gated to the `main` branch of `ansaldn/portfolioWebsite` via the OIDC trust policy — no other repo or branch can assume the deploy role.
 
 ### Auth0 production tenant secret hygiene
 
@@ -84,25 +84,25 @@ Auth0 production tenants additionally let you configure:
 - **Attack Protection** → Brute Force Protection, Suspicious IP Throttling, Breached Password Detection — all on.
 - **MFA** at least as optional for accounts.
 
-## Deferred to phase-2 (CloudFront)
+## Now implemented on AWS
 
-GitHub Pages cannot send custom HTTP response headers, so these hardening items can't be applied at the current host. When you migrate to S3 + CloudFront (recommended in the earlier conversation), add a CloudFront Response Headers Policy with:
+These items were originally deferred because the previous static host couldn't send custom HTTP response headers. They are now live, served as real headers from the CloudFront Response Headers Policy in `infra/cloudfront.tf`:
 
-- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload` (and submit to hstspreload.org).
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`.
 - `X-Content-Type-Options: nosniff`.
-- `X-Frame-Options: DENY` (or move to CSP `frame-ancestors 'none'` once CSP is in a header).
-- `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()` — explicitly deny browser features the site doesn't use.
-- `Cross-Origin-Opener-Policy: same-origin`.
-- `Cross-Origin-Resource-Policy: same-origin`.
-- Move the existing CSP from `<meta>` to an HTTP header so `frame-ancestors` and `report-uri` work.
+- `X-Frame-Options: DENY` plus CSP `frame-ancestors 'none'`.
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()`.
+- `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Resource-Policy: same-origin`.
+- CSP served as a real HTTP header (the `<meta>` CSP in `index.html` is kept as defense-in-depth and mirrors it).
 
-CloudFront-level controls worth adding in phase-2:
+CloudFront-level controls now in place (`infra/`):
 
-- AWS WAF with the AWSManagedRulesCommonRuleSet and AWSManagedRulesKnownBadInputsRuleSet.
-- AWS Shield Standard (free, automatic).
-- Geo restriction if you don't want traffic from certain countries.
-- Origin Access Control (OAC) on the S3 bucket so it's only reachable via CloudFront.
-- CloudFront Functions or Lambda@Edge to inject the security headers if you'd rather generate them in code than the headers policy.
+- AWS WAFv2 with the Common Rule Set, Known Bad Inputs, Amazon IP reputation list, and a per-IP rate limit.
+- AWS Shield Standard (free, automatic with CloudFront).
+- Origin Access Control (OAC) so the S3 bucket is only reachable via CloudFront, never publicly.
+- Deploys via GitHub Actions using short-lived OIDC credentials — no long-lived AWS keys stored anywhere.
+
+Still optional / future: a `report-uri`/`report-to` CSP reporting endpoint, and geo-restriction if you ever want to limit traffic by country.
 
 ## Refresh pass — June 2026 (light/dark, new pages, booking)
 
@@ -158,6 +158,5 @@ Then commit:
 ```bash
 git add package.json package-lock.json index.html src/ SECURITY.md
 git commit -m "Security pass: bump deps (incl. react-router-dom CVE), add CSP/referrer meta, fix tabnabbing"
-git push origin gh-pages
-npm run deploy
+git push origin main   # GitHub Actions builds and deploys to AWS automatically
 ```

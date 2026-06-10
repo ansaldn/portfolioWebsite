@@ -1,9 +1,6 @@
 ###############################################################################
 # Route 53 — A + AAAA ALIAS records for both apex and www, pointing at the
-# CloudFront distribution.
-#
-# This is the cutover. The moment terraform apply finishes these records,
-# davidansa.com stops going to GitHub Pages and starts going to CloudFront.
+# CloudFront distribution. davidansa.com is served entirely from CloudFront.
 ###############################################################################
 
 locals {
@@ -19,7 +16,7 @@ resource "aws_route53_record" "site_a" {
   zone_id         = data.aws_route53_zone.primary.zone_id
   name            = each.value
   type            = "A"
-  allow_overwrite = true # cutover: replaces the existing apex A (GitHub Pages IPs)
+  allow_overwrite = true # alias record for the apex, managed by Terraform
 
   alias {
     name                   = aws_cloudfront_distribution.site.domain_name

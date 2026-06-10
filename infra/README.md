@@ -63,9 +63,9 @@ on `main`). First run populates the bucket and warms CloudFront.
 
 ## What happens to davidansa.com
 
-Terraform replaces the existing GitHub Pages A records on apex + www with
-ALIAS records pointing at CloudFront. DNS propagation is usually under 60
-seconds because R53's authoritative NS responds immediately and TTL is short.
+Terraform manages the apex + www A/AAAA records as ALIAS records pointing at
+CloudFront. DNS propagation is usually under 60 seconds because R53's
+authoritative NS responds immediately and TTL is short.
 
 ## Drift / re-apply
 

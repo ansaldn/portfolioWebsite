@@ -1,8 +1,9 @@
-# davidansa.com — Infrastructure & Cutover
+# davidansa.com — Infrastructure & Deployment
 
 This document is the source of truth for how the site is hosted and how to
-ship a change to production. The Terraform code lives in `infra/` and the
-CI/CD workflow in `.github/workflows/deploy.yml`.
+ship a change to production. The site runs entirely on AWS (S3 + CloudFront +
+WAF). The Terraform code lives in `infra/` and the CI/CD workflow in
+`.github/workflows/deploy.yml`.
 
 ## Architecture
 
@@ -66,9 +67,11 @@ CI/CD workflow in `.github/workflows/deploy.yml`.
   from CloudFront, not just from a `<meta>` tag. The meta CSP in
   `index.html` stays as defense-in-depth.
 
-## Cutover runbook
+## Provisioning runbook
 
-This is the one-time migration from GitHub Pages to AWS.
+This is the one-time runbook for standing the AWS stack up from scratch
+(e.g. into a fresh account, or rebuilding after a teardown). Day-to-day you
+won't need this — see "Day-2 operations" below.
 
 ### Pre-flight
 
@@ -76,8 +79,6 @@ This is the one-time migration from GitHub Pages to AWS.
       `davidansa.com` Route 53 hosted zone:
       `aws sts get-caller-identity`
 - [ ] Confirm Terraform 1.6+ is installed: `terraform version`
-- [ ] Note the current state — `davidansa.com` is currently down (Pages 404).
-      That's the baseline; the cutover replaces it with the AWS stack.
 
 ### Step 1 — Terraform apply (15–25 min)
 
@@ -95,11 +96,10 @@ What this does, in order:
 3. Creates WAFv2 web ACL in us-east-1.
 4. Creates CloudFront distribution with all of the above attached. This is
    the long step — CloudFront takes ~15 min to propagate globally.
-5. Replaces the apex + www A/AAAA records in R53 with ALIAS records pointing
-   at the distribution. **At this moment davidansa.com starts resolving
-   to CloudFront instead of GitHub Pages.** The bucket is still empty, so
-   requests will get a CloudFront-formatted 404 or the SPA index fallback —
-   which is fine, the next step populates the bucket.
+5. Points the apex + www A/AAAA records in R53 at the distribution via ALIAS
+   records, so davidansa.com resolves to CloudFront. The bucket is still
+   empty at this point, so requests will get a CloudFront-formatted 404 or
+   the SPA index fallback — which is fine, the next step populates the bucket.
 6. Provisions the GitHub OIDC provider + deploy role.
 
 Capture the outputs:
@@ -120,22 +120,30 @@ and set these **Repository variables** (not secrets):
 | `AWS_CLOUDFRONT_DISTRIBUTION_ID`  | (from `terraform output -raw cloudfront_distribution_id`) |
 | `AWS_REGION`                      | `eu-west-2`                           |
 
-Optional Vite build-time vars (only set if/when you re-enable Auth0 + Formspree):
+Optional Vite build-time public vars (set the ones you use — the site works
+without them, falling back to demo/mailto behaviour). See `.env.example` and
+the "Enable the forms & booking" section of `README.md` for details:
 
-| Variable                  | Value                              |
-| ------------------------- | ---------------------------------- |
-| `VITE_AUTH0_DOMAIN`       | your Auth0 tenant                  |
-| `VITE_AUTH0_CLIENT_ID`    | your Auth0 SPA client ID           |
-| `VITE_FORMSPREE_ENDPOINT` | your Formspree form URL            |
+| Variable                   | Value                                      |
+| -------------------------- | ------------------------------------------ |
+| `VITE_AUTH0_DOMAIN`        | your Auth0 tenant                          |
+| `VITE_AUTH0_CLIENT_ID`     | your Auth0 SPA client ID                   |
+| `VITE_FORMSPREE_ENDPOINT`  | your Formspree form URL                    |
+| `VITE_TURNSTILE_SITE_KEY`  | Cloudflare Turnstile site key (public)     |
+| `VITE_GCAL_EMBED_URL`      | Google Calendar appointment-schedule embed |
+
+All `VITE_*` values are public (embedded in the client bundle), so set them as
+repository **variables**, not secrets. Never put a Turnstile *secret* key or
+any private token here.
 
 ### Step 3 — First deploy (3 min)
 
 Push the infra commit, then trigger the workflow:
 
 ```bash
-git add infra/ .github/ INFRA.md package.json public/CNAME
+git add infra/ .github/ INFRA.md package.json
 git rm -r --cached dist || true
-git commit -m "Migrate hosting to AWS (S3 + CloudFront + WAF + OIDC)"
+git commit -m "Provision AWS hosting (S3 + CloudFront + WAF + OIDC)"
 git push origin main
 ```
 
@@ -178,18 +186,6 @@ Then in a browser:
 - `https://www.davidansa.com` → home page renders.
 - DevTools → Network → confirm `cloudfront` in response headers.
 - `https://securityheaders.com/?q=davidansa.com` → should score A or A+.
-
-### Step 5 — Decommission GitHub Pages (1 min)
-
-- [ ] `https://github.com/ansaldn/portfolioWebsite/settings/pages` →
-      Build and deployment → Source → **None**.
-- [ ] Delete the `gh-pages` branch locally + remote:
-      ```bash
-      git push origin --delete gh-pages
-      git branch -D gh-pages 2>/dev/null || true
-      ```
-- [ ] Already done in this commit: `gh-pages` npm package removed,
-      `deploy` / `predeploy` scripts removed.
 
 ## Day-2 operations
 
@@ -244,9 +240,9 @@ Expected baseline for low traffic:
 
 Realistic total: **~$8–10/mo** with WAF on, **~$1–2/mo** with WAF off.
 
-## Rollback plan (if cutover goes wrong)
+## Tearing the stack down
 
-If `terraform apply` partially succeeds and you want to back out:
+If you ever need to back the whole stack out (e.g. rebuilding from scratch):
 
 ```bash
 cd infra/
@@ -260,11 +256,6 @@ contains objects — empty it first:
 aws s3 rm s3://davidansa-com-site --recursive
 ```
 
-After destroy completes, restore GitHub Pages by:
-1. Repo Settings → Pages → Source → `gh-pages` branch.
-2. Re-add `davidansa.com` to the Custom domain field (after re-verifying via
-   TXT record at user-account level).
-3. Re-add `public/CNAME` if you removed it.
-
-But ideally we never run this — the stack is small enough that any partial
-failure can be re-applied forward.
+Ideally you never run this — the stack is small enough that any partial
+failure can be re-applied forward with `terraform apply`. To rebuild, follow
+the provisioning runbook above from Step 1.

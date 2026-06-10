@@ -43,14 +43,19 @@ resource "aws_cloudfront_response_headers_policy" "security" {
       protection = true
       override   = true
     }
+    # NOTE: keep this in sync with the <meta> CSP fallback in index.html.
+    # The sha256 hash whitelists the inline no-flash theme bootstrap script;
+    # if you edit that script, recompute the hash:
+    #   printf '%s' '<script-contents>' | openssl dgst -sha256 -binary | openssl base64
     content_security_policy {
       content_security_policy = join(" ", [
         "default-src 'self';",
-        "script-src 'self';",
+        "script-src 'self' 'sha256-FM9335IYB+CagqAQ5LlFs4CWc4d0wQH8kSORA7tA04I=' https://challenges.cloudflare.com;",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
-        "font-src 'self' https://fonts.gstatic.com;",
+        "font-src 'self' https://fonts.gstatic.com data:;",
         "img-src 'self' data: https:;",
-        "connect-src 'self' https://formspree.io;",
+        "connect-src 'self' https://formspree.io https://challenges.cloudflare.com;",
+        "frame-src https://challenges.cloudflare.com https://calendar.google.com;",
         "form-action 'self' https://formspree.io;",
         "frame-ancestors 'none';",
         "base-uri 'self';",
