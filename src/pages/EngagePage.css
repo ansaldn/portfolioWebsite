@@ -55,6 +55,11 @@
   font-weight: 500;
   color: var(--fg-primary);
 }
+.engage-hint {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  line-height: 1.45;
+}
 
 .engage-form input[type="text"],
 .engage-form input[type="email"],

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { services } from "../data/services";
+import { validateWorkEmail } from "../lib/email";
 import "./ContactPage.css";
 
 // -----------------------------------------------------------------------------
@@ -135,6 +136,13 @@ const ContactPage = () => {
 
     if (!form.consent) {
       setErrorMsg("Please confirm that I can email you back about this enquiry.");
+      setStatus("error");
+      return;
+    }
+
+    const emailError = validateWorkEmail(form.email);
+    if (emailError) {
+      setErrorMsg(emailError);
       setStatus("error");
       return;
     }

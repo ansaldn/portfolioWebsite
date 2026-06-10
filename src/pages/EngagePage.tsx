@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import Turnstile from "../components/Turnstile";
+import { validateWorkEmail } from "../lib/email";
 import "./EngagePage.css";
 
 // -----------------------------------------------------------------------------
@@ -77,6 +78,12 @@ const EngagePage = () => {
     if (!form.consent) {
       setStatus("error");
       setErrorMsg("Please confirm you're happy for me to hold your details to arrange the call.");
+      return;
+    }
+    const emailError = validateWorkEmail(form.email);
+    if (emailError) {
+      setStatus("error");
+      setErrorMsg(emailError);
       return;
     }
     if (!token) {
@@ -239,6 +246,10 @@ const EngagePage = () => {
                 value={form.email}
                 onChange={(e) => update("email", e.target.value)}
               />
+              <span className="engage-hint">
+                Your company address, please — personal inboxes (Gmail, Outlook,
+                etc.) aren't accepted.
+              </span>
             </label>
           </div>
 
