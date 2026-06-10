@@ -101,6 +101,15 @@
   gap: 0.85rem;
 }
 .turnstile-widget { min-height: 65px; }
+.turnstile-msg {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+.turnstile-msg--error {
+  color: var(--accent-rose);
+  line-height: 1.5;
+}
 .engage-test-note {
   margin: 0;
   font-size: 0.82rem;

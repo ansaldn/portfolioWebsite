@@ -89,9 +89,9 @@ const HomePage = () => {
             </p>
           </div>
           <div className="home__cta-actions">
-            <a className="btn btn-primary btn-lg" href="mailto:davidansa00@gmail.com">
-              Email me directly
-            </a>
+            <Link className="btn btn-primary btn-lg" to="/engage">
+              Book a call
+            </Link>
             <a
               className="btn btn-outline-primary btn-lg"
               href="https://linkedin.com/in/davidansa"

@@ -162,8 +162,14 @@ const EngagePage = () => {
                 appear here automatically.
               </p>
               <p>
-                In the meantime, email me at{" "}
-                <a href="mailto:davidansa00@gmail.com">davidansa00@gmail.com</a>{" "}
+                In the meantime, you can{" "}
+                <a
+                  href="https://linkedin.com/in/davidansa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  message me on LinkedIn
+                </a>{" "}
                 and we'll find a time.
               </p>
             </div>
@@ -289,7 +295,7 @@ const EngagePage = () => {
         </fieldset>
 
         <div className="engage-verify surface-card">
-          <span className="engage-label">Quick human check</span>
+          <span className="engage-label">Verify you're human</span>
           <Turnstile
             siteKey={TURNSTILE_SITE_KEY}
             onVerify={(t) => {
@@ -346,9 +352,6 @@ const EngagePage = () => {
           >
             {status === "submitting" ? "Checking…" : "Continue to my calendar →"}
           </button>
-          <span className="engage-submit-aside">
-            Or <a href="mailto:davidansa00@gmail.com">email me directly</a>
-          </span>
         </div>
       </form>
     </main>

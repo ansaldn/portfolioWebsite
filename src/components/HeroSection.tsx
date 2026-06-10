@@ -22,12 +22,9 @@ const HeroSection = () => {
             <Link to="/clients" className="btn btn-primary btn-lg">
               View my client work
             </Link>
-            <a
-              href="mailto:davidansa00@gmail.com"
-              className="btn btn-outline-primary btn-lg"
-            >
-              Get in touch
-            </a>
+            <Link to="/engage" className="btn btn-outline-primary btn-lg">
+              Book a call
+            </Link>
           </div>
           <div className="hero__stats">
             <div className="hero__stat">

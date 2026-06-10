@@ -60,7 +60,7 @@ const timelines = [
 
 // -----------------------------------------------------------------------------
 // Formspree endpoint — set VITE_FORMSPREE_ENDPOINT in .env to enable.
-// Fallback: render a mailto: link if not configured.
+// If not configured, the form shows a notice (no email address is exposed).
 // -----------------------------------------------------------------------------
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as
   | string
@@ -158,16 +158,13 @@ const ContactPage = () => {
       _replyto: form.email,
     };
 
-    // No Formspree endpoint configured — fall back to mailto.
+    // No Formspree endpoint configured — we deliberately don't expose an
+    // email address, so surface a notice instead of opening a mail client.
     if (!FORMSPREE_ENDPOINT) {
-      const body = Object.entries(payload)
-        .filter(([k]) => !k.startsWith("_"))
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n\n");
-      window.location.href = `mailto:davidansa00@gmail.com?subject=${encodeURIComponent(
-        payload._subject
-      )}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
+      setStatus("error");
+      setErrorMsg(
+        "This form isn't connected yet. Please reach me on LinkedIn in the meantime.",
+      );
       return;
     }
 
@@ -226,9 +223,7 @@ const ContactPage = () => {
               within two working days — usually faster.
             </p>
             <p className="contact-success__text">
-              If it's urgent, you can also{" "}
-              <a href="mailto:davidansa00@gmail.com">email me directly</a>{" "}
-              or message me on{" "}
+              If it's urgent, you can also message me on{" "}
               <a
                 href="https://linkedin.com/in/davidansa"
                 target="_blank"
@@ -463,9 +458,10 @@ const ContactPage = () => {
 
         {!FORMSPREE_ENDPOINT && (
           <p className="contact-fallback-note">
-            Note: this form currently opens your email client (Formspree
-            endpoint not configured). It will switch to direct submission once
-            <code> VITE_FORMSPREE_ENDPOINT</code> is set in <code>.env</code>.
+            Note: this form isn't connected yet (Formspree endpoint not
+            configured), so it can't send. Set{" "}
+            <code>VITE_FORMSPREE_ENDPOINT</code> in <code>.env</code> to enable
+            submissions.
           </p>
         )}
 
@@ -478,7 +474,14 @@ const ContactPage = () => {
             {status === "submitting" ? "Sending…" : "Send pre-boarding brief"}
           </button>
           <span className="contact-submit-aside">
-            Or <a href="mailto:davidansa00@gmail.com">email me directly</a>
+            Or{" "}
+            <a
+              href="https://linkedin.com/in/davidansa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              message me on LinkedIn
+            </a>
           </span>
         </div>
       </form>

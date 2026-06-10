@@ -144,7 +144,14 @@ const BusinessPage = () => {
               </Link>
             </div>
             <p className="business-cta__aside">
-              Prefer email? <a href="mailto:davidansa00@gmail.com">davidansa00@gmail.com</a>
+              Prefer LinkedIn?{" "}
+              <a
+                href="https://linkedin.com/in/davidansa"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message me there
+              </a>
             </p>
           </div>
         </div>

@@ -206,12 +206,9 @@ const ServicesPage = () => {
             <Link to="/contact" className="btn btn-primary btn-lg">
               Start a pre-boarding brief
             </Link>
-            <a
-              className="btn btn-outline-primary btn-lg"
-              href="mailto:davidansa00@gmail.com"
-            >
-              Or just email me
-            </a>
+            <Link to="/engage" className="btn btn-outline-primary btn-lg">
+              Or book a call
+            </Link>
           </div>
         </div>
       </section>
