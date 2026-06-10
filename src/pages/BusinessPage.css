@@ -1,0 +1,176 @@
+.business-page { padding: 0 0 5rem; }
+
+/* -------- Hero -------- */
+.business-hero {
+  padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+.business-hero__title { margin: 0.5rem 0 1rem; }
+.business-hero__title-accent {
+  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.business-hero__lede {
+  max-width: 70ch;
+  font-size: 1.075rem;
+  color: var(--fg-secondary);
+}
+.business-hero__cta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+/* -------- Engagement models -------- */
+.business-models {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 820px) {
+  .business-models { grid-template-columns: 1fr; }
+}
+.business-model {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem 1.6rem;
+}
+.business-model__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--tint-accent-strong);
+  border: 1px solid var(--border-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+}
+.business-model__title { margin: 0; font-size: 1.25rem; }
+.business-model__summary {
+  margin: 0;
+  color: var(--fg-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.business-model__best {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.9rem;
+  color: var(--fg-primary);
+}
+.business-model__best-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* -------- Assurances -------- */
+.business-assurances {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 2rem;
+}
+@media (max-width: 720px) {
+  .business-assurances { grid-template-columns: 1fr; }
+}
+.business-assurance {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+.business-assurance__check {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent-green) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-green) 40%, transparent);
+  color: var(--accent-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.business-assurance__label {
+  font-weight: 600;
+  color: var(--fg-primary);
+  margin-bottom: 0.2rem;
+}
+.business-assurance__detail {
+  margin: 0;
+  color: var(--fg-secondary);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* -------- Terms + CTA -------- */
+.business-terms-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+@media (max-width: 820px) {
+  .business-terms-wrap { grid-template-columns: 1fr; }
+}
+.business-terms { padding: 2rem 1.9rem; }
+.business-terms__title { margin: 0 0 1.25rem; font-size: 1.4rem; }
+.business-terms__grid {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.business-terms__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.business-terms__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.business-terms__row dt {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.business-terms__row dd {
+  margin: 0;
+  text-align: right;
+  color: var(--fg-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.business-cta {
+  padding: 2rem 1.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  justify-content: center;
+}
+.business-cta__title { margin: 0; font-size: 1.5rem; }
+.business-cta__text { margin: 0; color: var(--fg-secondary); }
+.business-cta__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+.business-cta__aside {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+}

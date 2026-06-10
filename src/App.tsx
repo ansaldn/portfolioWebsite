@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ClientsPage from "./pages/ClientsPage";
 import ServicesPage from "./pages/ServicesPage";
+import BusinessPage from "./pages/BusinessPage";
+import EngagePage from "./pages/EngagePage";
 import ContactPage from "./pages/ContactPage";
 import ErrorPage404 from "./pages/ErrorPage404";
 
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/clients" element={<ClientsPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/business" element={<BusinessPage />} />
+        <Route path="/engage" element={<EngagePage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<ErrorPage404 />} />
       </Routes>

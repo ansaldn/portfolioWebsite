@@ -6,37 +6,54 @@
 
     <!--
       Content Security Policy (defense-in-depth XSS mitigation).
-      Set via <meta> because GitHub Pages can't send custom HTTP headers.
-      When migrating to CloudFront, move this to a Response Headers Policy
-      and ALSO add: X-Content-Type-Options, Strict-Transport-Security,
-      X-Frame-Options (or frame-ancestors), Permissions-Policy, COOP/COEP.
-      The Auth0 domain comes from %VITE_AUTH0_DOMAIN% at build time.
+      Set via <meta> as a fallback; the authoritative copy is the CloudFront
+      Response Headers Policy (see infra/cloudfront.tf), which also adds
+      Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options,
+      Referrer-Policy, Permissions-Policy and COOP.
+
+      Third-party origins intentionally allowed:
+        - challenges.cloudflare.com  → Cloudflare Turnstile (CAPTCHA)
+        - calendar.google.com        → Google Calendar appointment embed
+        - formspree.io               → form submission endpoint
+      The inline theme bootstrap script is allowed by its sha256 hash so we
+      never need 'unsafe-inline' for scripts.
     -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
-               script-src 'self';
+               script-src 'self' 'sha256-FM9335IYB+CagqAQ5LlFs4CWc4d0wQH8kSORA7tA04I=' https://challenges.cloudflare.com;
                style-src 'self' 'unsafe-inline';
                img-src 'self' data:;
                media-src 'self';
                font-src 'self' data:;
-               connect-src 'self' https://formspree.io;
+               connect-src 'self' https://formspree.io https://challenges.cloudflare.com;
+               frame-src https://challenges.cloudflare.com https://calendar.google.com;
                object-src 'none';
                base-uri 'self';
                form-action 'self' https://formspree.io;
+               frame-ancestors 'none';
                upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
+    <!--
+      No-flash theme bootstrap. Runs before first paint so the page never
+      flashes the wrong theme. Defaults to the visitor's OS preference on a
+      first visit, then honours their saved choice. Light is the fallback.
+      NOTE: if you edit this script, recompute its sha256 and update the CSP
+      hash above (see infra/cloudfront.tf for the helper command).
+    -->
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script>
+
     <!-- SEO + social -->
-    <title>David Ansa | Cybersecurity, AWS &amp; CIAM Portfolio</title>
+    <title>David Ansa | Cybersecurity, AWS &amp; CIAM Consultant</title>
     <meta
       name="description"
-      content="David Ansa — cybersecurity and cloud engineer. Portfolio of AWS Security, CIAM (Auth0), and identity work for commercial and government clients."
+      content="David Ansa — cybersecurity, IAM and cloud consultant. Okta, Microsoft Entra, Auth0 and SOC 2 / FedRAMP delivery for commercial and government clients. Available for B2B engagements."
     />
     <meta name="author" content="David Ansa" />
-    <meta property="og:title" content="David Ansa | Cybersecurity, AWS &amp; CIAM Portfolio" />
-    <meta property="og:description" content="Cybersecurity and cloud engineer. Portfolio of AWS Security, CIAM (Auth0), and identity work." />
+    <meta property="og:title" content="David Ansa | Cybersecurity, AWS &amp; CIAM Consultant" />
+    <meta property="og:description" content="Cybersecurity, IAM and cloud consultant. Okta, Entra, Auth0, SOC 2 / FedRAMP for commercial and government clients." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://davidansa.com/" />
     <meta property="og:image" content="https://davidansa.com/assets/images/Memoji.png" />

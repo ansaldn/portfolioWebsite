@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 import "./NavBar.css";
 
 const Navbar = () => {
@@ -67,6 +68,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/business" onClick={() => setOpen(false)}>
+                For business
+              </NavLink>
+            </li>
+            <li>
               <a
                 href="https://linkedin.com/in/davidansa"
                 target="_blank"
@@ -78,13 +84,16 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <NavLink
-            to="/contact"
-            className="btn btn-primary site-nav__cta"
-            onClick={() => setOpen(false)}
-          >
-            Get in touch
-          </NavLink>
+          <div className="site-nav__actions">
+            <ThemeToggle />
+            <NavLink
+              to="/engage"
+              className="btn btn-primary site-nav__cta"
+              onClick={() => setOpen(false)}
+            >
+              Book a call
+            </NavLink>
+          </div>
         </div>
       </div>
     </nav>

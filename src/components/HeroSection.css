@@ -78,15 +78,16 @@
   max-width: 480px;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(180deg, #0E1729 0%, #0A1224 100%);
+  background: var(--bg-terminal);
+  border: 1px solid var(--border-strong);
 }
 .hero__terminal-bar {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.7rem 0.9rem;
-  background: rgba(255,255,255,0.02);
-  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .hero__dot {
   display: inline-block;
@@ -99,7 +100,7 @@
   margin-left: 0.6rem;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--fg-muted);
+  color: rgba(200, 212, 232, 0.6);
 }
 .hero__terminal-body {
   margin: 0;
@@ -107,7 +108,7 @@
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.7;
-  color: var(--fg-secondary);
+  color: var(--fg-on-terminal);
   white-space: pre-wrap;
 }
 .hero__terminal-body::selection { background: rgba(34,211,238,0.25); }

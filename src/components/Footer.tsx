@@ -18,6 +18,8 @@ const Footer = () => {
           <Link to="/">Home</Link>
           <Link to="/clients">Clients</Link>
           <Link to="/services">Services</Link>
+          <Link to="/business">For business</Link>
+          <Link to="/engage">Book a call</Link>
           <Link to="/contact">Contact</Link>
           <a
             href="https://linkedin.com/in/davidansa"

@@ -1,16 +1,109 @@
 /* ============================================================
    Design tokens — David Ansa portfolio
-   Dark, security-coded. Inspired by Cloudflare/Datadog/Okta
-   developer marketing pages.
+   Light + dark themes. Theme is chosen by a `data-theme`
+   attribute on <html> ("light" | "dark"), set before paint by
+   the inline script in index.html (follows the OS setting on a
+   first visit, then the user's saved choice). Light is the
+   default / no-JS fallback.
    ============================================================ */
 
 :root {
+  /* ---------- Shared tokens (theme-independent) ---------- */
+
+  /* Sector accents (per-client stripe) — readable on both themes */
+  --sector-gaming:    #8B5CF6;
+  --sector-industry:  #D97706;
+  --sector-edtech:    #16A34A;
+  --sector-fintech:   #0891B2;
+  --sector-health:    #E11D48;
+  --sector-retail:    #DB2777;
+  --sector-medical:   #059669;
+  --sector-saas:      #2563EB;
+  --sector-consumer:  #9333EA;
+
+  /* Type */
+  --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:  "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Radii — deliberately generous for a soft, rounded feel */
+  --radius-sm:  10px;
+  --radius-md:  16px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med:  280ms;
+  --dur-slow: 500ms;
+}
+
+/* ============================================================
+   LIGHT THEME (default)
+   ============================================================ */
+:root,
+:root[data-theme="light"] {
   /* Surface */
-  --bg-base:        #0A0F1C;       /* page background */
-  --bg-elevated:    #0F172A;       /* section background */
-  --bg-card:        #131C2E;       /* card background */
+  --bg-base:        #F6F8FC;       /* page background */
+  --bg-elevated:    #FFFFFF;       /* section background */
+  --bg-card:        #FFFFFF;       /* card background */
+  --bg-card-hover:  #F1F5FB;
+  --bg-overlay:     rgba(255, 255, 255, 0.82);   /* sticky nav */
+  --bg-terminal:    linear-gradient(180deg, #0F1B2E 0%, #0B1424 100%); /* code panel stays dark for contrast */
+  --bg-base-rgb:    246, 248, 252;  /* for fade gradients */
+
+  /* Borders */
+  --border-subtle:  #E2E8F2;
+  --border-strong:  #CBD5E6;
+  --border-accent:  rgba(8, 145, 178, 0.40);
+
+  /* Text */
+  --fg-primary:     #0F1B2D;
+  --fg-secondary:   #45526B;
+  --fg-muted:       #6B7894;
+  --fg-inverted:    #FFFFFF;
+  --fg-on-terminal: #C8D4E8;       /* text inside the dark code panel */
+
+  /* Accents — deepened for contrast on light surfaces */
+  --accent-cyan:    #0891B2;       /* primary CTA, links */
+  --accent-cyan-2:  #0E7490;
+  --accent-green:   #16A34A;       /* success, "live" */
+  --accent-amber:   #D97706;       /* in progress */
+  --accent-violet:  #7C3AED;
+  --accent-rose:    #E11D48;
+
+  /* Translucent accent tints */
+  --tint-accent:        rgba(8, 145, 178, 0.08);
+  --tint-accent-strong: rgba(8, 145, 178, 0.14);
+  --overlay-soft:       rgba(15, 27, 45, 0.03);  /* faint surface highlight */
+  --drop-shadow:        rgba(15, 27, 45, 0.12);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(15, 27, 45, 0.06);
+  --shadow-md: 0 10px 30px rgba(15, 27, 45, 0.10), 0 2px 6px rgba(15, 27, 45, 0.06);
+  --shadow-glow-cyan: 0 0 0 1px rgba(8, 145, 178, 0.20), 0 14px 40px rgba(8, 145, 178, 0.14);
+
+  /* Ambient page gradient tints */
+  --amb-1: rgba(8, 145, 178, 0.07);
+  --amb-2: rgba(124, 58, 237, 0.06);
+  --amb-3: rgba(22, 163, 74, 0.05);
+
+  color-scheme: light;
+}
+
+/* ============================================================
+   DARK THEME
+   ============================================================ */
+:root[data-theme="dark"] {
+  /* Surface */
+  --bg-base:        #0A0F1C;
+  --bg-elevated:    #0F172A;
+  --bg-card:        #131C2E;
   --bg-card-hover:  #1A2540;
   --bg-overlay:     rgba(10, 15, 28, 0.72);
+  --bg-terminal:    linear-gradient(180deg, #0E1729 0%, #0A1224 100%);
+  --bg-base-rgb:    10, 15, 28;
 
   /* Borders */
   --border-subtle:  #1F2A44;
@@ -22,45 +115,31 @@
   --fg-secondary:   #A8B3CF;
   --fg-muted:       #6B7894;
   --fg-inverted:    #0A0F1C;
+  --fg-on-terminal: #A8B3CF;
 
   /* Accents */
-  --accent-cyan:    #22D3EE;       /* primary CTA, links */
+  --accent-cyan:    #22D3EE;
   --accent-cyan-2:  #06B6D4;
-  --accent-green:   #4ADE80;       /* success, "live" */
-  --accent-amber:   #FBBF24;       /* in progress */
+  --accent-green:   #4ADE80;
+  --accent-amber:   #FBBF24;
   --accent-violet:  #A78BFA;
   --accent-rose:    #FB7185;
 
-  /* Sector accents (per-client stripe) */
-  --sector-gaming:    #A78BFA;
-  --sector-industry:  #FBBF24;
-  --sector-edtech:    #4ADE80;
-  --sector-fintech:   #22D3EE;
-  --sector-health:    #FB7185;
-  --sector-retail:    #F472B6;
-  --sector-medical:   #34D399;
-  --sector-saas:      #60A5FA;
-  --sector-consumer:  #C084FC;
+  /* Translucent accent tints */
+  --tint-accent:        rgba(34, 211, 238, 0.08);
+  --tint-accent-strong: rgba(34, 211, 238, 0.16);
+  --overlay-soft:       rgba(255, 255, 255, 0.03);
+  --drop-shadow:        rgba(0, 0, 0, 0.25);
 
-  /* Type */
-  --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono:  "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
-
-  /* Radii + shadows */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  20px;
-
+  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md: 0 6px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.25);
   --shadow-glow-cyan: 0 0 0 1px rgba(34,211,238,0.25), 0 8px 32px rgba(34,211,238,0.15);
 
-  /* Motion */
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast: 150ms;
-  --dur-med:  280ms;
-  --dur-slow: 500ms;
+  /* Ambient page gradient tints */
+  --amb-1: rgba(34, 211, 238, 0.10);
+  --amb-2: rgba(167, 139, 250, 0.08);
+  --amb-3: rgba(74, 222, 128, 0.05);
 
   color-scheme: dark;
 }
@@ -84,6 +163,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  transition: background var(--dur-med) var(--ease), color var(--dur-med) var(--ease);
 }
 
 /* Subtle ambient gradient on the page */
@@ -93,9 +173,9 @@ body::before {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60% 50% at 20% 0%,  rgba(34, 211, 238, 0.10), transparent 60%),
-    radial-gradient(50% 40% at 90% 10%, rgba(167, 139, 250, 0.08), transparent 60%),
-    radial-gradient(70% 60% at 50% 100%, rgba(74, 222, 128, 0.05), transparent 70%);
+    radial-gradient(60% 50% at 20% 0%,  var(--amb-1), transparent 60%),
+    radial-gradient(50% 40% at 90% 10%, var(--amb-2), transparent 60%),
+    radial-gradient(70% 60% at 50% 100%, var(--amb-3), transparent 70%);
   pointer-events: none;
 }
 
@@ -122,7 +202,7 @@ p { margin: 0 0 1em; color: var(--fg-secondary); }
 code, kbd, samp {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: rgba(34, 211, 238, 0.08);
+  background: var(--tint-accent);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 0.1em 0.4em;
@@ -135,14 +215,20 @@ button {
 }
 
 /* ------------------------------------------------------------
-   Bootstrap overrides — neutralise the light-mode defaults
+   Bootstrap overrides
    ------------------------------------------------------------ */
 
 .bg-body-tertiary {
-  background-color: rgba(15, 23, 42, 0.85) !important;
+  background-color: var(--bg-overlay) !important;
   backdrop-filter: saturate(140%) blur(12px);
   -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Pill-shaped buttons for the rounded aesthetic */
+.btn {
+  border-radius: var(--radius-pill) !important;
+  font-weight: 600;
 }
 
 .btn-outline-primary {
@@ -151,7 +237,7 @@ button {
   --bs-btn-hover-color: var(--fg-inverted);
   --bs-btn-hover-bg: var(--accent-cyan);
   --bs-btn-hover-border-color: var(--accent-cyan);
-  --bs-btn-focus-shadow-rgb: 34, 211, 238;
+  --bs-btn-focus-shadow-rgb: 8, 145, 178;
   --bs-btn-active-bg: var(--accent-cyan-2);
   --bs-btn-active-border-color: var(--accent-cyan-2);
 }
@@ -160,9 +246,10 @@ button {
   --bs-btn-color: var(--fg-inverted);
   --bs-btn-bg: var(--accent-cyan);
   --bs-btn-border-color: var(--accent-cyan);
+  --bs-btn-hover-color: var(--fg-inverted);
   --bs-btn-hover-bg: var(--accent-cyan-2);
   --bs-btn-hover-border-color: var(--accent-cyan-2);
-  --bs-btn-focus-shadow-rgb: 34, 211, 238;
+  --bs-btn-focus-shadow-rgb: 8, 145, 178;
   font-weight: 600;
 }
 
@@ -183,14 +270,19 @@ button {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-cyan);
-  padding: 0.25rem 0.6rem;
+  padding: 0.3rem 0.75rem;
   border: 1px solid var(--border-accent);
-  border-radius: 999px;
-  background: rgba(34, 211, 238, 0.06);
+  border-radius: var(--radius-pill);
+  background: var(--tint-accent);
 }
 
 .section {
   padding: 5rem 0;
+}
+.section--alt {
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-base) 100%);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 .section-heading {
   display: flex;
@@ -201,6 +293,13 @@ button {
 }
 .section-heading h2 { margin: 0; }
 .section-heading p  { margin: 0; max-width: 60ch; color: var(--fg-secondary); }
+.section-heading--row {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
 
 .tag {
   display: inline-flex;
@@ -209,9 +308,9 @@ button {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
-  padding: 0.3rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(34, 211, 238, 0.06);
+  padding: 0.32rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--tint-accent);
   border: 1px solid var(--border-subtle);
   color: var(--fg-secondary);
   white-space: nowrap;
@@ -226,6 +325,7 @@ button {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   transition:
     border-color var(--dur-med) var(--ease),
     transform var(--dur-med) var(--ease),

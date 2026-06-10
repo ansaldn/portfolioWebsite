@@ -6,7 +6,7 @@
   font-family: var(--font-mono);
   font-weight: 700;
   letter-spacing: 0.04em;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--overlay-soft);
 }
 
 /* "card" variant — boxed with sector-coloured border */
@@ -29,16 +29,16 @@
   /* Most monochrome SVGs use currentColor; default to sector colour so they
      pick up the right tint. Full-colour images override this naturally. */
   color: var(--sector, var(--accent-cyan));
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 1px 0 var(--drop-shadow));
 }
 
 /* Inline SVG mark — inherits currentColor from the parent .client-logo,
    which is set to the sector colour via inline style. */
 .client-logo--mark {
   /* parent already has border + sizing. SVG centres via flex on .client-logo */
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--overlay-soft);
 }
 .client-logo--mark svg {
   display: block;
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 1px 0 var(--drop-shadow));
 }

@@ -1,0 +1,194 @@
+.engage-page { padding: 4rem 0 6rem; }
+
+/* -------- Header -------- */
+.engage-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.engage-title { margin: 0.25rem 0 0; }
+.engage-lede {
+  margin: 0;
+  color: var(--fg-secondary);
+  max-width: 64ch;
+}
+.engage-required { color: var(--accent-rose); font-weight: 700; }
+
+/* -------- Form -------- */
+.engage-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.engage-fieldset {
+  padding: 1.6rem 1.6rem 1.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.engage-legend {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  padding: 0 0.5rem;
+  margin-left: -0.5rem;
+}
+.engage-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 640px) {
+  .engage-row { grid-template-columns: 1fr; }
+}
+.engage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.engage-label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--fg-primary);
+}
+
+.engage-form input[type="text"],
+.engage-form input[type="email"],
+.engage-form select,
+.engage-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--fg-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.engage-form textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.55;
+}
+.engage-form input::placeholder,
+.engage-form textarea::placeholder { color: var(--fg-muted); }
+.engage-form input:focus,
+.engage-form select:focus,
+.engage-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px var(--tint-accent-strong);
+}
+.engage-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.25rem;
+}
+
+/* -------- Verify block -------- */
+.engage-verify {
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.turnstile-widget { min-height: 65px; }
+.engage-test-note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+/* -------- Consent / error / submit -------- */
+.engage-consent {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.engage-consent input {
+  accent-color: var(--accent-cyan);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.engage-error {
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent-rose) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-rose) 40%, transparent);
+  color: var(--accent-rose);
+}
+.engage-fallback-note {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--accent-amber) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-amber) 35%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.engage-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+.engage-submit-aside { color: var(--fg-muted); font-size: 0.9rem; }
+
+.engage-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* -------- Booking / calendar -------- */
+.engage-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.engage-booking__title { margin: 0.25rem 0 0; }
+.engage-booking__lede { margin: 0 0 1.25rem; color: var(--fg-secondary); max-width: 60ch; }
+
+.engage-calendar {
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.engage-calendar__frame {
+  width: 100%;
+  height: 700px;
+  border: 0;
+  display: block;
+}
+@media (max-width: 640px) {
+  .engage-calendar__frame { height: 760px; }
+}
+
+.engage-calendar-fallback {
+  width: 100%;
+  padding: 2rem 1.9rem;
+}
+.engage-calendar-fallback h2 { margin: 0 0 0.75rem; font-size: 1.4rem; }
+.engage-calendar-fallback p { margin: 0 0 0.75rem; color: var(--fg-secondary); }
+.engage-calendar-fallback p:last-child { margin-bottom: 0; }

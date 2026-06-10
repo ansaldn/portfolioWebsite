@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { ThemeProvider } from "./theme/ThemeProvider";
 
 // Auth0 is wired up for an eventual CIAM / gated-content demo. It's optional:
 // if the env vars are absent at build time, the site renders without it. This
@@ -25,5 +26,7 @@ const tree = auth0Configured ? (
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>{tree}</React.StrictMode>,
+  <React.StrictMode>
+    <ThemeProvider>{tree}</ThemeProvider>
+  </React.StrictMode>,
 );

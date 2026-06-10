@@ -104,6 +104,42 @@ CloudFront-level controls worth adding in phase-2:
 - Origin Access Control (OAC) on the S3 bucket so it's only reachable via CloudFront.
 - CloudFront Functions or Lambda@Edge to inject the security headers if you'd rather generate them in code than the headers policy.
 
+## Refresh pass — June 2026 (light/dark, new pages, booking)
+
+This pass added a light/dark theme, two new pages (`/business`, `/engage`), and a calendar-booking flow gated by a form + CAPTCHA. Security-relevant changes:
+
+### Content-Security-Policy widened deliberately
+
+Two new third-party origins are now allowed, scoped as tightly as the features require:
+
+- `https://challenges.cloudflare.com` — Cloudflare Turnstile. Added to `script-src` (its widget JS), `connect-src` (token exchange) and `frame-src` (the challenge iframe).
+- `https://calendar.google.com` — added to `frame-src` only, for the Google Calendar appointment-schedule embed.
+
+The previously unconditional `script-src 'self'` would have blocked both Turnstile *and* the new no-flash theme bootstrap script. Rather than open the policy with `'unsafe-inline'`, the inline theme script is whitelisted by its **sha256 hash** (`sha256-FM9335IYB+CagqAQ5LlFs4CWc4d0wQH8kSORA7tA04I=`). If you edit that script in `index.html`, recompute the hash and update it in **both** `index.html` and `infra/cloudfront.tf`:
+
+```bash
+printf '%s' '<exact script contents>' | openssl dgst -sha256 -binary | openssl base64
+```
+
+The authoritative CSP is the CloudFront Response Headers Policy (`infra/cloudfront.tf`); the `<meta>` copy in `index.html` is a fallback and is kept in sync.
+
+### Booking-form anti-abuse
+
+The `/engage` form gates access to the calendar behind three layers:
+
+1. **Required real details** — name, work email, company and a context note are mandatory before the booking step renders.
+2. **Cloudflare Turnstile** — a privacy-preserving CAPTCHA. Falls back to Cloudflare's official "always passes" test key (`1x00000000000000000000AA`) with an on-screen notice when `VITE_TURNSTILE_SITE_KEY` is unset, so the flow stays demoable. **Set your real site key before launch.**
+3. **Honeypot field** — a hidden `website` input; any submission that fills it is silently dropped.
+
+**Important limitation (read before relying on the CAPTCHA).** Turnstile only provides real protection when the returned token is verified server-side against your Turnstile **secret** key. This site is statically hosted (S3/CloudFront) with no backend, so the token is currently collected and forwarded but not cryptographically verified. As-is, the CAPTCHA meaningfully raises the bar against casual/automated abuse of the UI, but it is not a server-enforced gate. To make it authoritative, do one of:
+
+- Enable Formspree's own built-in CAPTCHA/spam protection (simplest, free), or
+- Add a tiny verifier (e.g. an AWS Lambda behind API Gateway, or a Cloudflare Worker) that POSTs the token to `https://challenges.cloudflare.com/turnstile/v0/siteverify` with the secret key and only then accepts the submission. The secret key must live there, never in the client bundle.
+
+### Env / secret hygiene
+
+All `VITE_*` variables are baked into the public client bundle at build time. Only public identifiers belong there (Turnstile *site* key, Auth0 *client* ID, Formspree endpoint, the Google Calendar embed URL). Never put a Turnstile *secret* key, Auth0 client secret, or any private token in a `VITE_*` variable. `.env.example` now states this explicitly.
+
 ## Apply locally
 
 Pull the dep upgrades into your working tree:
