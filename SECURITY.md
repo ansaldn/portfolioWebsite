@@ -25,7 +25,7 @@ These resolved automatically once the direct dev dependencies were bumped to the
 
 Dev-only CVE that intentionally remains.
 
-- **GHSA-67mh-4wv8-2f99** (CVSS 5.3, MOD) — `esbuild <= 0.24.2` allows any visited website to issue cross-origin requests to the local Vite dev server. Only fixable by upgrading to Vite 6, which is a breaking change for plugins. Filed as a phase-2 item. Exposure is limited: it requires `npm run dev` to be running *and* you to visit a malicious page in the same browser session. Never affects production.
+- **GHSA-67mh-4wv8-2f99** (CVSS 5.3, MOD) — `esbuild <= 0.24.2` allows any visited website to issue cross-origin requests to the local Vite dev server. **Resolved** — see the "esbuild removed" note below.
 
 ### Code-level — fixed
 
@@ -140,6 +140,23 @@ The `/engage` form gates access to the calendar behind three layers:
 
 All `VITE_*` variables are baked into the public client bundle at build time. Only public identifiers belong there (Turnstile *site* key, Auth0 *client* ID, Formspree endpoint, the Google Calendar embed URL). Never put a Turnstile *secret* key, Auth0 client secret, or any private token in a `VITE_*` variable. `.env.example` now states this explicitly.
 
+## esbuild removed — Vite 8 upgrade (June 2026)
+
+A Dependabot alert flagged a high-severity esbuild issue (RCE via `NPM_CONFIG_REGISTRY`, fixed in esbuild ≥ 0.28.1). esbuild was a **transitive, build-time-only** dependency pulled in by Vite 5 (`vite 5.4.21 → esbuild 0.21.5`); it is never shipped in the production browser bundle.
+
+Forcing `esbuild ≥ 0.28.1` via an npm `overrides` entry was tested and **breaks the Vite 5 build** ("transforming destructuring … not supported yet") — Vite 5 is not compatible with that esbuild line.
+
+The clean fix was to upgrade the build toolchain:
+
+- `vite` → `^8.0.16`, `@vitejs/plugin-react` → `^6.0.2`.
+- **Vite 8 no longer depends on esbuild at all** (it bundles with Rolldown), so the vulnerable package is removed from the tree entirely rather than merely bumped. `npm ls esbuild` returns empty; the only remaining reference in `package-lock.json` is an *optional* peer-dependency declaration (`^0.27.0 || ^0.28.0`) that is not installed.
+- This also resolves the older dev-server CVE (GHSA-67mh-4wv8-2f99) for the same reason.
+
+Operational notes:
+
+- **Node version:** Vite 8 requires Node `^20.19.0 || >=22.12.0`. The GitHub Actions workflow was bumped to Node 22; make sure your local Node is on a supported version before running `npm install` / `npm run dev`.
+- Verified with a clean `npm ci` + `tsc` + `vite build` on the new lockfile.
+
 ## Apply locally
 
 Pull the dep upgrades into your working tree:
@@ -148,7 +165,7 @@ Pull the dep upgrades into your working tree:
 cd ~/portfolioWebsite
 rm -rf node_modules package-lock.json
 npm install
-npm audit            # should report only 2 moderate (esbuild dev-only)
+npm audit            # esbuild is gone post-Vite-8; expect a clean or near-clean report
 npm run build        # confirm the build still works
 npm run dev          # smoke test locally
 ```
