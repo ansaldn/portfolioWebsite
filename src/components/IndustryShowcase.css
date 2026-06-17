@@ -1,7 +1,7 @@
 .ind {
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 2rem;
 }
 
 /* ---- Industry chips ---- */
@@ -45,29 +45,32 @@
   opacity: 0.6;
 }
 
-/* ---- Logo cloud ---- */
-.ind-cloud {
+/* ---- Logo wall — separate, clearly individual tiles ---- */
+.ind-wall {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem 0.65rem;
-  max-width: 940px;
+  gap: 0.85rem;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 0.5rem 0 1rem;
 }
 
-.ind-bubble {
-  flex: none;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
+.logo-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  min-width: 124px;
+  padding: 0 1.3rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  /* muted greyscale by default */
+  text-decoration: none;
+  /* muted greyscale at rest */
   filter: grayscale(1);
-  opacity: 0.6;
+  opacity: 0.72;
   transition:
     filter var(--dur-med) var(--ease),
     opacity var(--dur-med) var(--ease),
@@ -75,32 +78,52 @@
     border-color var(--dur-med) var(--ease),
     box-shadow var(--dur-med) var(--ease);
 }
-.ind-bubble:hover,
-.ind-bubble:focus-visible { outline: none; }
+.logo-tile__img {
+  max-height: 34px;
+  max-width: 140px;
+  width: auto;
+  height: auto;
+  display: block;
+}
+.logo-tile__mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--sector);
+}
 
-/* When an industry is active, light up the matches and fade the rest. */
-.ind-bubble.is-lit {
+/* Highlight matches, fade the rest, when an industry is active. */
+.logo-tile.is-lit {
   filter: none;
   opacity: 1;
-  transform: scale(1.07) translateY(-2px);
+  transform: translateY(-2px);
   border-color: var(--sector);
   box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--sector) 45%, transparent),
-    0 10px 28px color-mix(in srgb, var(--sector) 22%, transparent);
-  z-index: 2;
+    0 0 0 1px var(--sector),
+    0 10px 26px color-mix(in srgb, var(--sector) 20%, transparent);
 }
-.ind-bubble.is-dimmed {
-  opacity: 0.18;
+.logo-tile.is-dimmed {
+  opacity: 0.2;
   filter: grayscale(1);
 }
 
+/* Hovering a single tile (no industry pinned) still brings it to colour. */
+.logo-tile:hover,
+.logo-tile:focus-visible {
+  outline: none;
+  filter: none;
+  opacity: 1;
+  border-color: var(--sector);
+}
+
 @media (max-width: 600px) {
-  .ind-cloud { gap: 0.4rem; }
-  /* nudge the largest bubbles down a touch so they pack better on mobile */
-  .ind-bubble { box-shadow: none; }
+  .ind-wall { gap: 0.55rem; }
+  .logo-tile { height: 58px; min-width: 104px; padding: 0 1rem; }
+  .logo-tile__img { max-height: 28px; max-width: 116px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ind-bubble { transition: filter 0.01ms, opacity 0.01ms; }
-  .ind-bubble.is-lit { transform: none; }
+  .logo-tile { transition: filter 0.01ms, opacity 0.01ms; }
+  .logo-tile.is-lit { transform: none; }
 }

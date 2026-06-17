@@ -42,6 +42,13 @@ export interface Client {
    * See /public/logos/README.md for guidance on sourcing brand-safe SVGs.
    */
   logo?: string;
+  /**
+   * Optional dark-theme logo variant, used only for monochrome marks that
+   * would be illegible in dark mode (e.g. an all-black wordmark). When set and
+   * the theme is dark, this is shown instead of `logo`. Full-colour logos
+   * don't need this — a single `logo` works in both themes.
+   */
+  logoDark?: string;
 }
 
 export const clients: Client[] = [
@@ -113,6 +120,7 @@ export const clients: Client[] = [
     ],
     stack: ["Okta", "Okta Adaptive MFA", "Okta Verify", "MFA", "EDR", "MDM", "GRC"],
     ribbons: ["Okta SME", "Adaptive MFA"],
+    logo: "/logos/on-running.svg",
     projects: [
       {
         title: "Identity & MFA",
@@ -147,6 +155,7 @@ export const clients: Client[] = [
     ],
     stack: ["IAM", "SSO", "MFA", "SCIM", "Identity governance"],
     ribbons: ["IAM"],
+    logo: "/logos/miro.svg",
     projects: [
       {
         title: "Identity & access",
@@ -174,6 +183,7 @@ export const clients: Client[] = [
     ],
     stack: ["Auth0", "CIAM", "OIDC", "OAuth 2.0", "MFA", "Universal Login"],
     ribbons: ["CIAM", "Auth0"],
+    logo: "/logos/traxent.svg",
     projects: [
       {
         title: "Customer identity build",

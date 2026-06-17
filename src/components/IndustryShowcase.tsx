@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { clients, type ClientSector } from "../data/clients";
-import ClientLogo from "./ClientLogo";
+import { clients, type Client, type ClientSector } from "../data/clients";
+import { useTheme } from "../theme/ThemeProvider";
 import "./IndustryShowcase.css";
 
 const sectorColor: Record<ClientSector, string> = {
@@ -29,10 +29,78 @@ const SECTOR_ORDER: ClientSector[] = [
   "Consumer",
 ];
 
-// Seeded sizes + vertical offsets to give the cloud an organic, "zoomed-out"
-// scatter without random layout shifts on every render.
-const SIZES = [96, 64, 80, 108, 60, 88, 72, 100, 68, 92, 76];
-const OFFSETS = [0, 26, 10, 32, 4, 20, 8, 28, 14, 2, 18];
+const monogram = (name: string) =>
+  name
+    .split(/[^a-zA-Z0-9]+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+interface TileProps {
+  client: Client;
+  state: "neutral" | "lit" | "dimmed";
+  onActivate: () => void;
+  onDeactivate: () => void;
+}
+
+const LogoTile = ({ client, state, onActivate, onDeactivate }: TileProps) => {
+  const { theme } = useTheme();
+
+  // Build an ordered list of candidate sources. In dark mode we try a
+  // dark-variant first (explicit `logoDark`, or an auto-derived
+  // "<name>-dark.svg"), then fall back to the regular logo, then to a
+  // monogram. So dropping "<name>-dark.svg" into /public/logos is enough —
+  // no code change — and a missing dark file simply falls back to the colour
+  // logo rather than breaking.
+  const sources = useMemo(() => {
+    const list: string[] = [];
+    if (client.logo) {
+      if (theme === "dark") {
+        list.push(client.logoDark ?? client.logo.replace(/\.svg$/i, "-dark.svg"));
+      }
+      list.push(client.logo);
+    } else if (theme === "dark" && client.logoDark) {
+      list.push(client.logoDark);
+    }
+    return list;
+  }, [theme, client.logo, client.logoDark]);
+
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    setIdx(0);
+  }, [sources]);
+
+  const src = sources[idx];
+  const showImage = Boolean(src);
+
+  return (
+    <Link
+      to={`/clients#${client.slug}`}
+      className={`logo-tile ${state === "lit" ? "is-lit" : ""} ${state === "dimmed" ? "is-dimmed" : ""}`}
+      style={{ ["--sector" as string]: sectorColor[client.sector] }}
+      title={`${client.company} · ${client.sector}`}
+      aria-label={`${client.company} — ${client.sector}. View case study.`}
+      onMouseEnter={onActivate}
+      onMouseLeave={onDeactivate}
+      onFocus={onActivate}
+      onBlur={onDeactivate}
+    >
+      {showImage ? (
+        <img
+          src={src}
+          alt={`${client.company} logo`}
+          className="logo-tile__img"
+          loading="lazy"
+          onError={() => setIdx((i) => i + 1)}
+        />
+      ) : (
+        <span className="logo-tile__mono">{monogram(client.company)}</span>
+      )}
+    </Link>
+  );
+};
 
 const IndustryShowcase = () => {
   const [active, setActive] = useState<ClientSector | null>(null);
@@ -45,7 +113,11 @@ const IndustryShowcase = () => {
 
   return (
     <div className="ind">
-      <div className="ind-industries" role="list" aria-label="Industries delivered in">
+      <div
+        className="ind-industries"
+        role="list"
+        aria-label="Industries delivered in"
+      >
         {sectors.map((s) => (
           <button
             key={s}
@@ -66,34 +138,22 @@ const IndustryShowcase = () => {
         ))}
       </div>
 
-      <div
-        className={`ind-cloud ${active ? "is-focusing" : ""}`}
-        aria-hidden="false"
-      >
-        {clients.map((c, i) => {
-          const lit = active === c.sector;
-          const dimmed = active !== null && active !== c.sector;
-          const size = SIZES[i % SIZES.length];
+      <div className="ind-wall">
+        {clients.map((c) => {
+          const state =
+            active === null
+              ? "neutral"
+              : active === c.sector
+                ? "lit"
+                : "dimmed";
           return (
-            <Link
+            <LogoTile
               key={c.slug}
-              to={`/clients#${c.slug}`}
-              className={`ind-bubble ${lit ? "is-lit" : ""} ${dimmed ? "is-dimmed" : ""}`}
-              style={{
-                width: size,
-                height: size,
-                marginTop: OFFSETS[i % OFFSETS.length],
-                ["--sector" as string]: sectorColor[c.sector],
-              }}
-              title={`${c.company} · ${c.sector}`}
-              aria-label={`${c.company} — ${c.sector}. View case study.`}
-              onMouseEnter={() => setActive(c.sector)}
-              onMouseLeave={() => setActive(null)}
-              onFocus={() => setActive(c.sector)}
-              onBlur={() => setActive(null)}
-            >
-              <ClientLogo client={c} size={Math.round(size * 0.62)} variant="plain" />
-            </Link>
+              client={c}
+              state={state}
+              onActivate={() => setActive(c.sector)}
+              onDeactivate={() => setActive(null)}
+            />
           );
         })}
       </div>
