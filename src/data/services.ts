@@ -18,22 +18,45 @@ export interface Service {
   proof: string[];
   /** Icon as a tiny inline SVG path (24x24, single colour, currentColor). */
   iconPath: string;
+  /** Optional badge, e.g. "New". */
+  badge?: string;
 }
 
 export const services: Service[] = [
+  {
+    slug: "greenfield-iam",
+    title: "Greenfield IAM implementation",
+    tagline:
+      "Stand up a modern identity platform from nothing — built to scale, documented to last.",
+    description:
+      "For start-ups and teams without the right identity infrastructure, the strongest way to engage is to build the platform from the ground up. That means choosing the right identity provider for where the business is heading, proving it against your real applications and edge cases before committing, wiring your HRIS in as the single source of truth, and codifying the joiner/mover/leaver rules so the platform largely runs itself. Crucially, it ships with the documentation and runbooks an internal IT or service-desk team needs to own it confidently after handover — not a black box only the consultant understands.",
+    deliverables: [
+      "Vendor selection and management — IdP evaluation, scoring and PoC against your real use cases",
+      "HRIS integration as the authoritative source of identity (Workday / HiBob / BambooHR → IdP)",
+      "Joiner/Mover/Leaver rules and lifecycle automation built from scratch",
+      "SSO + SCIM onboarding pipeline for your application estate",
+      "RBAC model and access policies designed around how the business actually works",
+      "Full documentation and 1st / 2nd / 3rd-line runbooks so your IT team can own it",
+    ],
+    stack: ["Okta", "Microsoft Entra", "SSO", "SCIM", "HRIS integration", "Lifecycle automation", "RBAC"],
+    proof: ["paddle", "hitachi-rail", "babbel"],
+    iconPath:
+      "M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z",
+  },
+
   {
     slug: "iam-modernisation",
     title: "IAM modernisation",
     tagline:
       "Move off legacy identity to a modern, federated, audit-ready stack.",
     description:
-      "Replace fragmented logins, manual joiner/mover/leaver processes, and outdated MFA with a unified identity platform — Okta or Microsoft Entra — and the automation to keep it healthy.",
+      "When the identity estate already exists but is holding the business back — fragmented logins, manual joiner/mover/leaver work, ageing MFA — modernisation replaces it with a unified, federated platform and the automation to keep it healthy. In practice that has meant upgrades like Okta Classic to OIE, rolling out a company-wide RBAC standard through lifecycle management, and migrating application integrations onto a single secure authentication surface. Every change runs through a phased plan with rollback gates, so production users never feel the migration happening underneath them.",
     deliverables: [
       "Current-state assessment with gap analysis",
       "Target architecture (SSO, MFA, lifecycle, SCIM)",
       "Phased migration plan with rollback gates",
       "Automated JML workflows in Okta / Entra / SailPoint",
-      "RBAC standard rolled out across the company",
+      "Company-wide RBAC standard via lifecycle management",
       "Runbooks and 1st / 2nd / 3rd line documentation",
     ],
     stack: ["Okta (Classic → OIE)", "Microsoft Entra", "SailPoint IdentityNow", "SSO", "SCIM", "MFA", "RBAC"],
@@ -43,12 +66,33 @@ export const services: Service[] = [
   },
 
   {
+    slug: "iam-iga-ownership",
+    title: "IAM & IGA platform ownership",
+    tagline:
+      "Day-2 ownership of the identity estate — from access reviews to the licensing bill.",
+    description:
+      "Plenty of teams can stand a tool up; far fewer can own and run it well. This is the day-2 work: running access-review and certification campaigns, keeping governance and approval workflows healthy, tightening privileged access against audit requirements, and operating joiner/mover/leaver at scale — all while managing the stakeholders that come with it, translating fluently between risk, compliance, finance and engineering. It's grounded in actually having owned these platforms at 3,000–8,000-user scale, including the unglamorous parts like licensing rationalisation and keeping the cost base honest.",
+    deliverables: [
+      "Access-review and certification campaigns (SailPoint IdentityNow, Entra)",
+      "Governance and approval workflows kept audit-ready",
+      "Privileged Access Management operations aligned to audit",
+      "JML run-operations and SLA management (90%+ adherence track record)",
+      "Licensing rationalisation and ongoing cost control",
+      "Stakeholder reporting that lands with risk, compliance and finance",
+    ],
+    stack: ["SailPoint IdentityNow", "Okta Identity Governance", "Microsoft Entra", "PAM", "Access certification", "RBAC"],
+    proof: ["epic-games", "convatec", "depop", "lifebit"],
+    iconPath:
+      "M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12zm0 3a3 3 0 100 6 3 3 0 000-6z",
+  },
+
+  {
     slug: "ma-integration",
     title: "M&A IAM integration",
     tagline:
       "Day-1 access without the day-1 chaos — for both sides of an acquisition.",
     description:
-      "Cybersecurity and risk assessments during M&A due diligence, followed by application migration, consolidation, and licensing rationalisation. I've integrated identity for construction, defence, and consumer acquisitions — and helped Depop onboard into Etsy's identity estate.",
+      "Acquisitions live or die on whether people can safely access what they need on day one. The work starts before the deal closes, with cybersecurity and risk assessments across on-premise and SaaS applications as part of due diligence, then moves into integration: approving applications with business owners and vendors, consolidating duplicated tooling, and rationalising licences so the combined estate costs less, not more. For applications without native cloud authentication, Okta Identity Governance keeps them in scope and visible. Delivered across construction, defence-adjacent, and consumer acquisitions, including bringing acquired brands into a parent company's identity estate.",
     deliverables: [
       "Pre-deal due-diligence: tooling overlap, risk, license cost",
       "Identity integration plan with cutover dates",
@@ -69,7 +113,7 @@ export const services: Service[] = [
     tagline:
       "Stand up the controls, the evidence, and the continuous monitoring auditors expect.",
     description:
-      "End-to-end programme delivery for SOC 2 Type II and FedRAMP. Policy authoring, control implementation, audit prep, and the automated evidence-gathering that keeps you compliant after the audit ships.",
+      "End-to-end programme delivery for SOC 2 Type II and FedRAMP, owned from policy authoring through to the automated evidence-gathering that keeps you compliant after the audit ships. That covers writing and maintaining the policy library, running recurring risk assessments, implementing controls across IAM, endpoint and data, and standing up an incident-response plan that has actually been exercised. On the FedRAMP side it extends to baseline control implementation and the continuous monitoring that government and government-adjacent work demands — including endpoint enrolment specifically to satisfy those requirements.",
     deliverables: [
       "Policy library aligned to the chosen framework",
       "Risk assessments and ongoing risk register",
@@ -85,33 +129,12 @@ export const services: Service[] = [
   },
 
   {
-    slug: "okta-deployment",
-    title: "Okta deployment & administration",
-    tagline:
-      "Okta SME — from greenfield rollouts to multi-region acquisitions.",
-    description:
-      "Okta deployment, day-2 administration, and SME escalation for organisations from a few hundred to 8,000+ users. Comfortable across Workforce Identity, OIG, Adaptive MFA, Workflows, and the Okta API.",
-    deliverables: [
-      "Multi-region tenant rollout",
-      "Application onboarding pipeline (SAML / OIDC / SCIM)",
-      "Custom Okta Workflows for lifecycle and automation",
-      "Adaptive MFA + SCEP certificate distribution",
-      "Roles, permissions, and admin-tier hardening",
-      "1st / 2nd / 3rd line operational playbooks",
-    ],
-    stack: ["Okta Workforce Identity", "Okta Identity Governance", "Okta Workflows", "Adaptive MFA", "SCIM", "SCEP"],
-    proof: ["hitachi-rail", "babbel", "depop", "convatec"],
-    iconPath:
-      "M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12zm0 3a3 3 0 100 6 3 3 0 000-6z",
-  },
-
-  {
     slug: "ciam",
     title: "CIAM (Customer Identity)",
     tagline:
       "Sign-up, sign-in, MFA, and social login for end users — without rebuilding it.",
     description:
-      "Customer-facing identity using Auth0 (or Cognito) — PKCE-based SPA flows, social login, MFA, branded login pages, and the back-end protections (bot detection, breached-password checks, rate limits) that keep your real users in and the abuse out.",
+      "Customer-facing identity using Auth0 (or Amazon Cognito) — PKCE-based SPA flows, social and passwordless login, MFA, and branded universal login pages, plus the back-end protections that keep real users in and abuse out: bot detection, breached-password checks, and brute-force throttling. The focus is getting the security right without making customers fight the front door, and giving your API teams a clean, validated token pattern to build against rather than reinventing auth per service.",
     deliverables: [
       "Auth0 / Cognito tenant configuration and hardening",
       "Social login, MFA, and passwordless flows",
@@ -121,7 +144,7 @@ export const services: Service[] = [
       "Migration plan from a legacy auth provider",
     ],
     stack: ["Auth0", "Amazon Cognito", "OIDC", "OAuth 2.0 (PKCE)", "MFA", "JWT"],
-    proof: [],
+    proof: ["traxent"],
     iconPath:
       "M12 4a4 4 0 014 4v2h1a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8a2 2 0 012-2h1V8a4 4 0 014-4zm0 2a2 2 0 00-2 2v2h4V8a2 2 0 00-2-2zm0 8a2 2 0 100 4 2 2 0 000-4z",
   },
@@ -132,19 +155,62 @@ export const services: Service[] = [
     tagline:
       "Deploy and tune the detection that catches things before they spread.",
     description:
-      "Endpoint Detection & Response rollouts (CrowdStrike Falcon, Microsoft Defender) across mixed macOS + Windows estates via Intune, Jamf, or simpleMDM. Custom detection rules, policy tuning to drop false positives, and SIEM onboarding so alerts actually go somewhere.",
+      "Endpoint Detection & Response done properly: rolling out CrowdStrike Falcon or Microsoft Defender (EDR/XDR) across mixed macOS and Windows estates, then doing the work most rollouts skip — writing custom detection rules tuned to your environment and dialling down the false positives that make analysts ignore alerts. It finishes with SIEM onboarding across the tools that matter (Okta, EDR, Google Workspace, Slack) so alerts actually land somewhere, and an on-call triage runbook so the team knows exactly what to do when one fires.",
     deliverables: [
       "EDR rollout across macOS + Windows",
       "Custom detection rules tuned to your environment",
-      "MDM + SCEP certificate distribution",
-      "DLP policies and data-retention standards",
+      "False-positive reduction and policy tuning",
       "SIEM onboarding for Okta, EDR, Workspace, Slack",
+      "Threat-graph and dashboard monitoring",
       "On-call alert triage runbook",
     ],
-    stack: ["CrowdStrike Falcon", "Microsoft Defender (EDR/XDR)", "Microsoft Sentinel", "Intune", "Jamf", "simpleMDM", "DLP", "SIEM"],
-    proof: ["babbel", "ki-insurance", "depop", "convatec"],
+    stack: ["CrowdStrike Falcon", "Microsoft Defender (EDR/XDR)", "Microsoft Sentinel", "SIEM", "Detection engineering"],
+    proof: ["babbel", "depop", "convatec"],
     iconPath:
-      "M4 4h16v4H4V4zm0 6h16v4H4v-4zm0 6h16v4H4v-4zm3-9h2v1H7V7zm0 6h2v1H7v-1zm0 6h2v1H7v-1z",
+      "M12 5C6.5 5 2.7 9 1 12c1.7 3 5.5 7 11 7s9.3-4 11-7c-1.7-3-5.5-7-11-7zm0 3a4 4 0 110 8 4 4 0 010-8zm0 2.2a1.8 1.8 0 100 3.6 1.8 1.8 0 000-3.6z",
+  },
+
+  {
+    slug: "hardware-mdm",
+    title: "Hardware & device management",
+    tagline:
+      "Every device enrolled, encrypted, certificate-trusted and accounted for.",
+    description:
+      "The physical fleet and the MDM that governs it. That means zero-touch / no-touch enrolment so new hires are productive on day one, configuration and hardening baselines applied consistently across the estate, and SCEP certificate distribution so devices are trusted for Wi-Fi, VPN and MFA rather than relying on passwords. It extends to data-loss-prevention and retention policy at the endpoint, and the asset hygiene that keeps the hardware list matching reality. Delivered across Intune, Jamf and simpleMDM on mixed macOS + Windows fleets.",
+    deliverables: [
+      "MDM rollout across macOS + Windows (Intune / Jamf / simpleMDM)",
+      "Zero-touch / no-touch deployment for new devices",
+      "SCEP certificate distribution for Wi-Fi, VPN and MFA trust",
+      "Device configuration and hardening baselines",
+      "DLP and data-retention policies at the endpoint",
+      "Hardware lifecycle and asset hygiene",
+    ],
+    stack: ["Microsoft Intune", "Jamf", "simpleMDM", "SCEP", "Okta Adaptive MFA", "DLP"],
+    proof: ["babbel", "convatec", "paddle"],
+    iconPath:
+      "M3 4h18a1 1 0 011 1v11a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1zm1 2v9h16V6H4zm4 13h8v2H8v-2z",
+  },
+
+  {
+    slug: "ai-integration",
+    title: "AI integration support",
+    tagline:
+      "Bring an enterprise AI tool in securely — then make it genuinely useful.",
+    description:
+      "Two halves to this. First, onboard an enterprise AI platform the right way: SSO and SCIM provisioning, a least-privilege access model, and the data-governance and DLP guardrails that make it safe to roll out across the company rather than a shadow-IT risk. Second — and this is where most adoptions stall — scope the tool to what the business actually needs, shaping it into a chatbot or assistant grounded in your own systems and data so it solves real internal problems instead of being an expensive novelty.",
+    deliverables: [
+      "SSO + SCIM onboarding for the AI platform",
+      "Least-privilege access model and usage guardrails",
+      "Data-governance and DLP review for AI usage",
+      "Use-case scoping workshops with the business",
+      "A scoped internal chatbot / assistant grounded in your data",
+      "Rollout guidance and adoption enablement",
+    ],
+    stack: ["SSO", "SCIM", "Okta / Entra", "Data governance", "DLP", "Enterprise AI platforms"],
+    proof: [],
+    iconPath:
+      "M11 3l1.6 4.4L17 9l-4.4 1.6L11 15l-1.6-4.4L5 9l4.4-1.6L11 3zm7 9l.9 2.5 2.6.9-2.6.9-.9 2.7-.9-2.7-2.6-.9 2.6-.9.9-2.5z",
+    badge: "New",
   },
 ];
 
@@ -244,6 +310,6 @@ export const faq: FaqItem[] = [
   },
   {
     q: "What does the commercial structure look like?",
-    a: "Day-rate contracting (inside or outside IR35 in the UK) for most engagements, fixed-price for well-scoped programmes, and ad-hoc advisory packages. Pricing depends on scope and length — let's talk.",
+    a: "Day-rate contracting (inside or outside IR35 in the UK) for most engagements, fixed-price for well-scoped programmes, and ad-hoc advisory packages. Full pricing guidance is on the For business page — let's talk.",
   },
 ];

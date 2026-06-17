@@ -51,7 +51,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Cloud & Automation",
+    title: "Cloud, Automation & AI",
     skills: [
       "AWS",
       "Terraform",
@@ -61,6 +61,7 @@ export const skillGroups: SkillGroup[] = [
       "Python",
       "Bash",
       "Slack APIs",
+      "Enterprise AI (SSO/SCIM)",
     ],
   },
 ];
@@ -69,16 +70,21 @@ export const valueProps = [
   {
     headline: "Senior IAM expertise",
     detail:
-      "10+ years across Okta, Microsoft Entra, and SailPoint — including SSO, MFA, JML automation, and governance at organisations from 2,000 to 8,000+ users.",
+      "A decade across Okta (Classic and OIE), Microsoft Entra and SailPoint IdentityNow — SSO, MFA, SCIM provisioning, joiner/mover/leaver automation and governance — delivered at organisations from 2,000 to 8,000+ users, including as the named Okta SME on global rollouts.",
   },
   {
     headline: "Government-ready",
     detail:
-      "Hands-on FedRAMP and SOC 2 Type II programme delivery, including control implementation, continuous monitoring, and audit prep.",
+      "Hands-on SOC 2 Type II and FedRAMP delivery: policy authoring, control implementation across IAM, endpoint and data, continuous monitoring and audit prep — including the automated evidence pipelines that keep you compliant after the auditor leaves.",
   },
   {
     headline: "M&A IAM specialist",
     detail:
-      "Led IAM integration on multiple acquisitions (Hitachi Rail × 2, Depop × Etsy) — application consolidation, vendor reviews, and licensing rationalisation.",
+      "IAM integration on multiple acquisitions — Hitachi Rail twice (construction and defence-adjacent) and Depop into Etsy — covering pre-deal due diligence, application consolidation, vendor and technical reviews, and licensing rationalisation that takes cost out of the combined estate.",
+  },
+  {
+    headline: "Endpoint, device & AI",
+    detail:
+      "Beyond identity: EDR rollouts (CrowdStrike Falcon, Microsoft Defender), MDM and SCEP across macOS and Windows, and SIEM onboarding — plus integrating enterprise AI tools securely via SSO/SCIM and scoping them to do something genuinely useful for the business.",
   },
 ];

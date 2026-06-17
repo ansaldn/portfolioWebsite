@@ -43,7 +43,7 @@ const ServicesPage = () => {
         <div className="container-narrow">
           <div className="section-heading">
             <span className="eyebrow">WHAT I DO</span>
-            <h2>Six ways I engage</h2>
+            <h2>Ways I engage</h2>
             <p>
               Each card links to the receipts — the clients where I've actually
               delivered this work. The deliverables list shows what you walk
@@ -58,6 +58,9 @@ const ServicesPage = () => {
                 id={s.slug}
                 className="service-card surface-card"
               >
+                {s.badge && (
+                  <span className="service-card__badge">{s.badge}</span>
+                )}
                 <div className="service-card__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="28" height="28">
                     <path d={s.iconPath} fill="currentColor" />

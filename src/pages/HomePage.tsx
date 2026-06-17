@@ -70,8 +70,9 @@ const HomePage = () => {
             <span className="eyebrow">CAPABILITIES</span>
             <h2>What I bring to the engagement</h2>
             <p>
-              Three things commercial and government clients hire me for, and
-              the tools I deliver them with.
+              What commercial and government clients hire me for — identity,
+              compliance, M&amp;A and endpoint security — and the tools I deliver
+              them with.
             </p>
           </div>
           <SkillsStrip />

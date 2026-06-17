@@ -97,6 +97,35 @@ export const clients: Client[] = [
   },
 
   {
+    slug: "traxent",
+    company: "Traxent",
+    role: "CIAM Engineer (Contract)",
+    start: "2025",
+    end: "2025",
+    location: "Remote, UK",
+    sector: "SaaS",
+    headline:
+      "Built and integrated the customer identity layer (Auth0) for Traxent, a SaaS trading-education platform.",
+    highlights: [
+      "Stood up customer sign-up, sign-in and MFA on Auth0 from scratch",
+      "Implemented branded Auth0 Universal Login for the platform's end users",
+      "Configured secure, standards-based authentication (OIDC / OAuth 2.0)",
+    ],
+    stack: ["Auth0", "CIAM", "OIDC", "OAuth 2.0", "MFA", "Universal Login"],
+    ribbons: ["CIAM", "Auth0"],
+    projects: [
+      {
+        title: "Customer identity build",
+        bullets: [
+          "Created and connected an Auth0 tenant to the platform for end-user authentication",
+          "Implemented sign-up, sign-in and MFA with branded Universal Login",
+          "Applied secure session handling and a standards-based token pattern for the app",
+        ],
+      },
+    ],
+  },
+
+  {
     slug: "hitachi-rail",
     company: "Hitachi Rail Europe",
     role: "Okta Deployment Lead / Application Specialist",

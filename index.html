@@ -46,14 +46,18 @@
     <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script>
 
     <!-- SEO + social -->
-    <title>David Ansa | Cybersecurity, AWS &amp; CIAM Consultant</title>
+    <title>David Ansa — IAM &amp; Identity Security Consultant | Okta, Entra, SailPoint</title>
     <meta
       name="description"
-      content="David Ansa — cybersecurity, IAM and cloud consultant. Okta, Microsoft Entra, Auth0 and SOC 2 / FedRAMP delivery for commercial and government clients. Available for B2B engagements."
+      content="David Ansa is a senior IAM and cybersecurity consultant in London, UK. Identity &amp; Access Management with Okta, Microsoft Entra and SailPoint; CIAM (Auth0); plus SOC 2 Type II and FedRAMP delivery for commercial and government clients. Available for B2B engagements."
+    />
+    <meta
+      name="keywords"
+      content="IAM consultant, IAM engineer, identity and access management, Okta consultant, Microsoft Entra, SailPoint IdentityNow, CIAM, Auth0, SOC 2 Type II, FedRAMP, M&amp;A IAM integration, cybersecurity consultant, London, UK"
     />
     <meta name="author" content="David Ansa" />
-    <meta property="og:title" content="David Ansa | Cybersecurity, AWS &amp; CIAM Consultant" />
-    <meta property="og:description" content="Cybersecurity, IAM and cloud consultant. Okta, Entra, Auth0, SOC 2 / FedRAMP for commercial and government clients." />
+    <meta property="og:title" content="David Ansa — IAM &amp; Identity Security Consultant" />
+    <meta property="og:description" content="Senior IAM &amp; cybersecurity consultant. Okta, Microsoft Entra, SailPoint, Auth0 (CIAM), SOC 2 Type II and FedRAMP for commercial and government clients." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://davidansa.com/" />
     <meta property="og:image" content="https://davidansa.com/assets/images/Memoji.png" />
@@ -61,6 +65,66 @@
 
     <link rel="canonical" href="https://davidansa.com/" />
     <link rel="icon" type="image/png" href="/assets/images/Memoji.png" />
+
+    <!-- Structured data — helps search engines understand who David is and
+         what he does. JSON-LD is data, not executed script, so it is not
+         subject to script-src CSP and is read by crawlers regardless. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://davidansa.com/#person",
+          "name": "David Ansa",
+          "jobTitle": "Senior IAM & Cybersecurity Consultant",
+          "description": "Senior Identity & Access Management and cybersecurity consultant specialising in Okta, Microsoft Entra, SailPoint, CIAM (Auth0), SOC 2 Type II and FedRAMP.",
+          "url": "https://davidansa.com/",
+          "image": "https://davidansa.com/assets/images/Memoji.png",
+          "sameAs": ["https://www.linkedin.com/in/davidansa"],
+          "address": { "@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB" },
+          "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Greenwich" },
+          "knowsAbout": [
+            "Identity and Access Management",
+            "Okta",
+            "Microsoft Entra ID",
+            "SailPoint IdentityNow",
+            "Customer Identity and Access Management (CIAM)",
+            "Auth0",
+            "Single Sign-On (SSO)",
+            "SCIM provisioning",
+            "Multi-Factor Authentication",
+            "Privileged Access Management",
+            "SOC 2 Type II",
+            "FedRAMP",
+            "Endpoint Detection and Response",
+            "Mobile Device Management",
+            "Mergers and Acquisitions IAM integration"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://davidansa.com/#service",
+          "name": "David Ansa — IAM & Cybersecurity Consultancy",
+          "description": "IAM and cybersecurity consultancy for commercial and government clients: greenfield IAM, modernisation, IAM/IGA platform ownership, M&A integration, SOC 2 / FedRAMP, CIAM, endpoint & EDR, device management and secure AI integration.",
+          "provider": { "@id": "https://davidansa.com/#person" },
+          "url": "https://davidansa.com/services",
+          "areaServed": ["United Kingdom", "European Union", "United States"],
+          "serviceType": [
+            "Greenfield IAM implementation",
+            "IAM modernisation",
+            "IAM & IGA platform ownership",
+            "M&A IAM integration",
+            "SOC 2 Type II & FedRAMP",
+            "CIAM (Customer Identity)",
+            "Endpoint & EDR",
+            "Hardware & device management",
+            "AI integration support"
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -39,9 +39,14 @@ GitHub **repository variables** (Settings → Secrets and variables → Actions 
 1. Sign up free at [formspree.io](https://formspree.io) and create a form.
 2. Copy its endpoint URL, e.g. `https://formspree.io/f/abcdwxyz`.
 3. Set `VITE_FORMSPREE_ENDPOINT` to that URL.
-4. (Recommended) In the Formspree form settings, enable its built-in
-   reCAPTCHA / spam protection — this gives you a *server-verified* spam gate
-   to complement the Turnstile check on the page.
+4. Activate the form: a brand-new Formspree form needs you to confirm it via
+   the email Formspree sends on its first submission, otherwise posts fail.
+5. **Leave Formspree's reCAPTCHA OFF.** Formspree's reCAPTCHA is incompatible
+   with AJAX/`fetch` submissions (it causes `403` errors) and is redundant
+   here — the page already gates with Cloudflare Turnstile + a honeypot. Use
+   Formspree's other (AJAX-safe) spam filtering if you want extra coverage.
+6. If you restrict the form to specific domains in Formspree, include
+   `davidansa.com`, `www.davidansa.com`, and `localhost` (for local testing).
 
 ### 2. CAPTCHA — Cloudflare Turnstile (`VITE_TURNSTILE_SITE_KEY`)
 

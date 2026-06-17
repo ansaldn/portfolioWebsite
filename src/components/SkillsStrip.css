@@ -2,10 +2,13 @@
 
 .skills__pillars {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
 }
-@media (max-width: 860px) {
+@media (max-width: 1040px) {
+  .skills__pillars { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
   .skills__pillars { grid-template-columns: 1fr; }
 }
 .skills__pillar { padding: 1.5rem; }

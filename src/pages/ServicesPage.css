@@ -36,11 +36,28 @@
 }
 
 .service-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
   padding: 1.75rem 1.5rem;
   scroll-margin-top: 96px;
+}
+
+.service-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  color: var(--accent-green);
+  background: color-mix(in srgb, var(--accent-green) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-green) 40%, transparent);
 }
 
 .service-card__icon {

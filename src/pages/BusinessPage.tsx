@@ -14,24 +14,24 @@ const BusinessPage = () => {
         <div className="container-narrow">
           <span className="eyebrow">FOR BUSINESS · B2B ENGAGEMENTS</span>
           <h1 className="business-hero__title">
-            Engage me as a business,{" "}
+            Engage as a business,{" "}
             <span className="business-hero__title-accent">on your terms.</span>
           </h1>
           <p className="business-hero__lede">
-            I'm not just available for individual contracts — I work with
-            companies as a registered supplier. Whether you procure through a
+            David Ansa works with companies as a registered supplier — not only
+            as an individual contractor. Whether procurement runs through a
             day-rate contract, a fixed-price statement of work, a retained
-            advisory arrangement, or via your existing supplier list, I'll fit
-            the way your business already buys. The goal is to make working
-            together easy for your procurement, finance and security teams
-            alike.
+            advisory arrangement, or an existing approved-supplier list, the
+            engagement fits how the business already buys. The aim is to make
+            working together straightforward for procurement, finance and
+            security teams alike.
           </p>
           <div className="business-hero__cta">
             <Link to="/engage" className="btn btn-primary btn-lg">
               Start an engagement
             </Link>
             <Link to="/services" className="btn btn-outline-primary btn-lg">
-              See what I deliver
+              Explore the services
             </Link>
           </div>
         </div>
@@ -42,26 +42,25 @@ const BusinessPage = () => {
         <div className="container-narrow">
           <div className="section-heading">
             <span className="eyebrow">WAYS TO CONTRACT</span>
-            <h2>Four ways to bring me on</h2>
+            <h2>Four ways to engage</h2>
             <p>
               Same senior delivery either way — the structure flexes around how
-              your organisation prefers to engage suppliers.
+              the organisation prefers to engage suppliers. Figures below are
+              indicative guide prices; final commercials depend on scope and
+              length.
             </p>
           </div>
 
           <div className="business-models">
             {engagementModels.map((m) => (
               <article key={m.slug} className="business-model surface-card">
-                <div className="business-model__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
-                    <path
-                      d={m.iconPath}
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div className="business-model__head">
+                  <div className="business-model__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="26" height="26">
+                      <path d={m.iconPath} fill="currentColor" />
+                    </svg>
+                  </div>
+                  <span className="business-model__price">{m.price}</span>
                 </div>
                 <h3 className="business-model__title">{m.title}</h3>
                 <p className="business-model__summary">{m.summary}</p>
@@ -131,9 +130,9 @@ const BusinessPage = () => {
               Ready to set something up?
             </h2>
             <p className="business-cta__text">
-              Tell me a little about the company and the problem, verify you're
-              human, and book a slot directly in my calendar. I'll come to the
-              first call already briefed.
+              Share a little about the company and the problem, pass a quick
+              human check, and book a slot directly. The first call starts
+              already briefed.
             </p>
             <div className="business-cta__actions">
               <Link to="/engage" className="btn btn-primary btn-lg">
@@ -150,7 +149,7 @@ const BusinessPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Message me there
+                Connect there
               </a>
             </p>
           </div>
