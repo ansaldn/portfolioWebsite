@@ -11,6 +11,45 @@ const HomePage = () => {
     <main>
       <HeroSection />
 
+      {/* 1. Proof first — where I've delivered */}
+      <section className="section section--alt" id="clients">
+        <div className="container-narrow">
+          <div className="section-heading section-heading--row">
+            <div>
+              <span className="eyebrow">CLIENTS</span>
+              <h2>Where I've delivered</h2>
+              <p>
+                Engagements across gaming, fintech, industry, healthcare,
+                edtech, retail and SaaS. Hover an industry to spotlight the
+                companies — or open the full page for the deep dives.
+              </p>
+            </div>
+            <Link to="/clients" className="btn btn-outline-primary">
+              View all clients →
+            </Link>
+          </div>
+
+          <IndustryShowcase />
+        </div>
+      </section>
+
+      {/* 2. What I do — capabilities */}
+      <section className="section" id="skills">
+        <div className="container-narrow">
+          <div className="section-heading">
+            <span className="eyebrow">CAPABILITIES</span>
+            <h2>What I bring to the engagement</h2>
+            <p>
+              What commercial and government clients hire me for — identity,
+              compliance, M&amp;A and endpoint security — and the tools I deliver
+              them with.
+            </p>
+          </div>
+          <SkillsStrip />
+        </div>
+      </section>
+
+      {/* 3. Credentials that back it up */}
       <section className="section section--alt" id="credentials">
         <div className="container-narrow">
           <div className="section-heading">
@@ -43,42 +82,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="section" id="clients">
-        <div className="container-narrow">
-          <div className="section-heading section-heading--row">
-            <div>
-              <span className="eyebrow">CLIENTS</span>
-              <h2>Where I've delivered</h2>
-              <p>
-                Engagements across gaming, fintech, industry, healthcare,
-                edtech, retail and SaaS. Hover an industry to spotlight the
-                companies — or open the full page for the deep dives.
-              </p>
-            </div>
-            <Link to="/clients" className="btn btn-outline-primary">
-              View all clients →
-            </Link>
-          </div>
-
-          <IndustryShowcase />
-        </div>
-      </section>
-
-      <section className="section section--alt" id="skills">
-        <div className="container-narrow">
-          <div className="section-heading">
-            <span className="eyebrow">CAPABILITIES</span>
-            <h2>What I bring to the engagement</h2>
-            <p>
-              What commercial and government clients hire me for — identity,
-              compliance, M&amp;A and endpoint security — and the tools I deliver
-              them with.
-            </p>
-          </div>
-          <SkillsStrip />
-        </div>
-      </section>
-
+      {/* 4. Conversion */}
       <section className="section" id="contact">
         <div className="container-narrow home__cta-band surface-card">
           <div>
