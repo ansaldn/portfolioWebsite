@@ -50,10 +50,9 @@ const HomePage = () => {
               <span className="eyebrow">CLIENTS</span>
               <h2>Where I've delivered</h2>
               <p>
-                Engagements across gaming, fintech, industry, medical,
-                healthtech, edtech, retail and SaaS. Hover an industry to
-                spotlight the companies — or open the full page for the deep
-                dives.
+                Engagements across gaming, fintech, industry, healthcare,
+                edtech, retail and SaaS. Hover an industry to spotlight the
+                companies — or open the full page for the deep dives.
               </p>
             </div>
             <Link to="/clients" className="btn btn-outline-primary">

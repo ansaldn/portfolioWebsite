@@ -8,9 +8,8 @@ const sectorColor: Record<ClientSector, string> = {
   Industry: "var(--sector-industry)",
   EdTech: "var(--sector-edtech)",
   FinTech: "var(--sector-fintech)",
-  HealthTech: "var(--sector-health)",
+  Healthcare: "var(--sector-health)",
   Retail: "var(--sector-retail)",
-  Medical: "var(--sector-medical)",
   SaaS: "var(--sector-saas)",
   Consumer: "var(--sector-consumer)",
 };

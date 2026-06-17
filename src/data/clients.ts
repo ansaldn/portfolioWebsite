@@ -7,9 +7,8 @@ export type ClientSector =
   | "Industry"
   | "EdTech"
   | "FinTech"
-  | "HealthTech"
+  | "Healthcare"
   | "Retail"
-  | "Medical"
   | "SaaS"
   | "Consumer";
 
@@ -347,7 +346,7 @@ export const clients: Client[] = [
     start: "Nov 2023",
     end: "Apr 2024",
     location: "London, UK",
-    sector: "HealthTech",
+    sector: "Healthcare",
     headline:
       "Built SOC 2 Type II and FedRAMP-aligned controls across IAM, device, and incident-response programmes.",
     highlights: [
@@ -454,7 +453,7 @@ export const clients: Client[] = [
     start: "Feb 2022",
     end: "Aug 2022",
     location: "London, UK",
-    sector: "Medical",
+    sector: "Healthcare",
     headline:
       "Okta SME for 8,000+ global users with deep endpoint, Microsoft, and AWS/Terraform tooling.",
     highlights: [

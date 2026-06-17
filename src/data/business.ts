@@ -37,10 +37,10 @@ export const engagementModels: EngagementModel[] = [
   {
     slug: "retained-advisory",
     title: "Retained advisory",
-    price: "From £1,200/month + VAT",
+    price: "From £850/month + VAT",
     summary:
-      "A set block of senior IAM time each month — architecture reviews, escalation cover, and decision support — so a lean security team has a senior voice on call without the cost of a full-time hire. Unused time rolls over one month. The most accessible way to start, and the easiest to scale up as needs grow.",
-    bestFor: "Ongoing senior cover for lean teams (≈2 days / month)",
+      "A set block of senior IAM time each month — architecture reviews, escalation cover, and decision support — so a lean security team has a senior voice on call without the cost of a full-time hire. The rate steps down the longer you commit: £1,100/month on a 3-month term, £1,000 at 6 months, and £850 at 12 months. Unused time rolls over one month.",
+    bestFor: "Ongoing senior cover for lean teams (≈2 days / month) · 3-month minimum",
     iconPath:
       "M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v6l5 3 1-1.7-4-2.4V7z",
   },

@@ -33,8 +33,29 @@ The only exception is a **monochrome** logo (a solid-black or solid-white wordma
 ## Format guidance
 
 - **Official full-colour SVG** straight from the brand's press / brand-assets page is ideal.
+- **PNG is accepted as a fallback** — if there's no SVG for a logo, save a `<name>.png` (transparent background, ideally ~2× the display size for crispness) and it'll be used automatically. The site tries `.svg` first, then `.png`, for each slot.
 - Any aspect ratio is fine — the wall scales each logo to a max height of ~34px and centres it; wide wordmarks and square marks both work.
 - Don't worry about greyscale — that's applied with a CSS filter at rest and removed on hover; your file is never altered.
+
+The full lookup order per logo is: dark variant (`-dark.svg` → `-dark.png`, dark mode only) → standard (`.svg` → `.png`) → monogram fallback.
+
+## Icon / badge variant (client page)
+
+Some brands have a compact **badge/icon-only** mark as well as a full wordmark. The **home logo wall** uses the full logo, but the **client page** prefers the icon variant when one exists. Add it as `<name>-icon.svg` (and `<name>-icon-dark.svg` for a dark-mode version), e.g.:
+
+```
+miro.svg          ← full logo, home wall (light)
+miro-dark.svg     ← full logo, home wall (dark)
+miro-icon.svg     ← badge/icon, client page (light)
+miro-icon-dark.svg ← badge/icon, client page (dark)
+```
+
+Client-page lookup order (SVG tried before PNG at each step):
+
+- **Light:** `-icon` → standard
+- **Dark:** `-icon-dark` → `-icon` → `-dark` → standard
+
+If no icon file exists, the client page just uses the normal logo (then the inline mark, then a monogram), so adding icons is entirely optional and incremental.
 
 ## Trademark note
 

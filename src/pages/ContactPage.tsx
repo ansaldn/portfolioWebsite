@@ -20,7 +20,7 @@ const industries = [
   "Gaming / Entertainment",
   "FinTech / Insurance",
   "EdTech",
-  "HealthTech / Medical",
+  "Healthcare / Medical",
   "Industry / Manufacturing",
   "Retail / Consumer",
   "SaaS / Technology",

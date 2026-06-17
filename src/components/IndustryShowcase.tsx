@@ -9,9 +9,8 @@ const sectorColor: Record<ClientSector, string> = {
   Industry: "var(--sector-industry)",
   EdTech: "var(--sector-edtech)",
   FinTech: "var(--sector-fintech)",
-  HealthTech: "var(--sector-health)",
+  Healthcare: "var(--sector-health)",
   Retail: "var(--sector-retail)",
-  Medical: "var(--sector-medical)",
   SaaS: "var(--sector-saas)",
   Consumer: "var(--sector-consumer)",
 };
@@ -21,8 +20,7 @@ const SECTOR_ORDER: ClientSector[] = [
   "Gaming",
   "FinTech",
   "Industry",
-  "Medical",
-  "HealthTech",
+  "Healthcare",
   "EdTech",
   "Retail",
   "SaaS",
@@ -48,23 +46,26 @@ interface TileProps {
 const LogoTile = ({ client, state, onActivate, onDeactivate }: TileProps) => {
   const { theme } = useTheme();
 
-  // Build an ordered list of candidate sources. In dark mode we try a
-  // dark-variant first (explicit `logoDark`, or an auto-derived
-  // "<name>-dark.svg"), then fall back to the regular logo, then to a
-  // monogram. So dropping "<name>-dark.svg" into /public/logos is enough —
-  // no code change — and a missing dark file simply falls back to the colour
-  // logo rather than breaking.
+  // Build an ordered list of candidate sources, trying each until one loads
+  // (then falling back to a monogram). For each slot we try SVG first, then
+  // PNG — so a logo that only has a PNG still works. In dark mode we try the
+  // dark variant ("<name>-dark.svg/.png", or an explicit `logoDark`) first,
+  // then the regular logo. Dropping files into /public/logos is all that's
+  // needed — no code change — and any missing file simply advances to the
+  // next candidate.
   const sources = useMemo(() => {
     const list: string[] = [];
     if (client.logo) {
+      const base = client.logo.replace(/\.(svg|png)$/i, "");
       if (theme === "dark") {
-        list.push(client.logoDark ?? client.logo.replace(/\.svg$/i, "-dark.svg"));
+        if (client.logoDark) list.push(client.logoDark);
+        list.push(`${base}-dark.svg`, `${base}-dark.png`);
       }
-      list.push(client.logo);
+      list.push(`${base}.svg`, `${base}.png`);
     } else if (theme === "dark" && client.logoDark) {
       list.push(client.logoDark);
     }
-    return list;
+    return Array.from(new Set(list));
   }, [theme, client.logo, client.logoDark]);
 
   const [idx, setIdx] = useState(0);
