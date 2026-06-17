@@ -92,6 +92,16 @@ export const assurances: BusinessAssurance[] = [
     detail:
       "GDPR-aware by default. Work stays inside the client's own tooling and access policies and follows least-privilege — fitting, given the nature of the work.",
   },
+  {
+    label: "Security clearance",
+    detail:
+      "BPSS cleared, with eligibility to obtain SC or DV clearance where a contract requires it.",
+  },
+  {
+    label: "International & payments",
+    detail:
+      "Available to work with international companies and accept international payments — including US domestic (US-to-US) transactions — and able to travel internationally when an engagement calls for it.",
+  },
 ];
 
 export interface WorkingTerm {
@@ -101,7 +111,9 @@ export interface WorkingTerm {
 
 export const workingTerms: WorkingTerm[] = [
   { label: "Base", value: "London, UK" },
-  { label: "Delivery", value: "Remote-first · onsite UK/EU as needed" },
+  { label: "Delivery", value: "Remote-first · onsite UK/EU · international travel as needed" },
+  { label: "Clearance", value: "BPSS — SC / DV eligible" },
+  { label: "Payments", value: "International · incl. US-to-US" },
   { label: "Sectors", value: "Commercial + government / regulated" },
   { label: "Typical engagement", value: "2 weeks – 12 months" },
   { label: "Notice to start", value: "Usually within 2–4 weeks" },

@@ -1,0 +1,106 @@
+.ind {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+/* ---- Industry chips ---- */
+.ind-industries {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.ind-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.ind-chip:hover,
+.ind-chip:focus-visible,
+.ind-chip.is-active {
+  outline: none;
+  border-color: var(--sector);
+  color: var(--sector);
+  background: color-mix(in srgb, var(--sector) 12%, transparent);
+  transform: translateY(-1px);
+}
+.ind-chip__count {
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+/* ---- Logo cloud ---- */
+.ind-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.65rem;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0.5rem 0 1rem;
+}
+
+.ind-bubble {
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  /* muted greyscale by default */
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition:
+    filter var(--dur-med) var(--ease),
+    opacity var(--dur-med) var(--ease),
+    transform var(--dur-med) var(--ease),
+    border-color var(--dur-med) var(--ease),
+    box-shadow var(--dur-med) var(--ease);
+}
+.ind-bubble:hover,
+.ind-bubble:focus-visible { outline: none; }
+
+/* When an industry is active, light up the matches and fade the rest. */
+.ind-bubble.is-lit {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.07) translateY(-2px);
+  border-color: var(--sector);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--sector) 45%, transparent),
+    0 10px 28px color-mix(in srgb, var(--sector) 22%, transparent);
+  z-index: 2;
+}
+.ind-bubble.is-dimmed {
+  opacity: 0.18;
+  filter: grayscale(1);
+}
+
+@media (max-width: 600px) {
+  .ind-cloud { gap: 0.4rem; }
+  /* nudge the largest bubbles down a touch so they pack better on mobile */
+  .ind-bubble { box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ind-bubble { transition: filter 0.01ms, opacity 0.01ms; }
+  .ind-bubble.is-lit { transform: none; }
+}

@@ -60,7 +60,7 @@ export const services: Service[] = [
       "Runbooks and 1st / 2nd / 3rd line documentation",
     ],
     stack: ["Okta (Classic → OIE)", "Microsoft Entra", "SailPoint IdentityNow", "SSO", "SCIM", "MFA", "RBAC"],
-    proof: ["epic-games", "babbel", "ki-insurance", "convatec"],
+    proof: ["epic-games", "babbel", "miro", "on-running", "ki-insurance", "convatec"],
     iconPath:
       "M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4zm-1 13l5-5-1.4-1.4L11 12.2 8.4 9.6 7 11l4 4z",
   },
@@ -108,22 +108,23 @@ export const services: Service[] = [
   },
 
   {
-    slug: "soc2-fedramp",
-    title: "SOC 2 Type II & FedRAMP",
+    slug: "governance-compliance",
+    title: "Governance & compliance frameworks",
     tagline:
-      "Stand up the controls, the evidence, and the continuous monitoring auditors expect.",
+      "Stand up the controls, evidence and monitoring auditors and government buyers expect — whatever the framework.",
     description:
-      "End-to-end programme delivery for SOC 2 Type II and FedRAMP, owned from policy authoring through to the automated evidence-gathering that keeps you compliant after the audit ships. That covers writing and maintaining the policy library, running recurring risk assessments, implementing controls across IAM, endpoint and data, and standing up an incident-response plan that has actually been exercised. On the FedRAMP side it extends to baseline control implementation and the continuous monitoring that government and government-adjacent work demands — including endpoint enrolment specifically to satisfy those requirements.",
+      "Compliance programmes delivered end-to-end and framework-agnostic. The same backbone — a maintained policy library, a live risk register, controls implemented across IAM, endpoint and data, automated evidence-gathering, and an incident-response plan that has actually been exercised — maps cleanly across SOC 2 Type II, FedRAMP, ISO 27001, NIST and Cyber Essentials, alongside GDPR obligations. Delivered hands-on for SOC 2 Type II and FedRAMP (including baseline controls and the continuous monitoring that government and government-adjacent work demands), with controls written once and mapped across overlapping frameworks so you're not gathering the same evidence twice.",
     deliverables: [
-      "Policy library aligned to the chosen framework",
-      "Risk assessments and ongoing risk register",
+      "Policy library aligned to your chosen framework(s)",
+      "Risk assessments and an ongoing risk register",
       "Control implementation across IAM, endpoint, and data",
-      "Automated audit and review pipelines",
+      "Automated audit and evidence-gathering pipelines",
       "Incident-response plan and tabletop exercise",
+      "Cross-framework control mapping (SOC 2 · FedRAMP · ISO 27001 · NIST)",
       "FedRAMP baseline controls + continuous monitoring",
     ],
-    stack: ["SOC 2 Type II", "FedRAMP", "NIST", "ISO 27001", "GRC", "MDM", "EDR"],
-    proof: ["lifebit"],
+    stack: ["SOC 2 Type II", "FedRAMP", "ISO 27001", "NIST", "Cyber Essentials", "GDPR", "GRC"],
+    proof: ["lifebit", "on-running"],
     iconPath:
       "M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4zm0 4a3 3 0 100 6 3 3 0 000-6zm0 8c-2.7 0-5 1.3-5 3v1h10v-1c0-1.7-2.3-3-5-3z",
   },
@@ -176,17 +177,17 @@ export const services: Service[] = [
     tagline:
       "Every device enrolled, encrypted, certificate-trusted and accounted for.",
     description:
-      "The physical fleet and the MDM that governs it. That means zero-touch / no-touch enrolment so new hires are productive on day one, configuration and hardening baselines applied consistently across the estate, and SCEP certificate distribution so devices are trusted for Wi-Fi, VPN and MFA rather than relying on passwords. It extends to data-loss-prevention and retention policy at the endpoint, and the asset hygiene that keeps the hardware list matching reality. Delivered across Intune, Jamf and simpleMDM on mixed macOS + Windows fleets.",
+      "The physical fleet and the MDM that governs it. That means zero-touch enrolment — via Apple Business Manager for Apple hardware, plus Autopilot and simpleMDM — so new hires are productive on day one, with configuration and hardening baselines applied consistently across the estate, and SCEP certificate distribution so devices are trusted for Wi-Fi, VPN and MFA rather than relying on passwords. It extends to data-loss-prevention and retention policy at the endpoint, and the asset hygiene that keeps the hardware list matching reality. Delivered across Apple Business Manager, Intune, Jamf and simpleMDM on mixed macOS + Windows fleets.",
     deliverables: [
       "MDM rollout across macOS + Windows (Intune / Jamf / simpleMDM)",
-      "Zero-touch / no-touch deployment for new devices",
+      "Zero-touch enrolment via Apple Business Manager (ADE), Autopilot & simpleMDM",
       "SCEP certificate distribution for Wi-Fi, VPN and MFA trust",
       "Device configuration and hardening baselines",
       "DLP and data-retention policies at the endpoint",
       "Hardware lifecycle and asset hygiene",
     ],
-    stack: ["Microsoft Intune", "Jamf", "simpleMDM", "SCEP", "Okta Adaptive MFA", "DLP"],
-    proof: ["babbel", "convatec", "paddle"],
+    stack: ["Apple Business Manager", "Microsoft Intune", "Jamf", "simpleMDM", "SCEP", "Okta Adaptive MFA", "DLP"],
+    proof: ["babbel", "convatec", "ki-insurance", "on-running", "paddle"],
     iconPath:
       "M3 4h18a1 1 0 011 1v11a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1zm1 2v9h16V6H4zm4 13h8v2H8v-2z",
   },

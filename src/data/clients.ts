@@ -97,6 +97,67 @@ export const clients: Client[] = [
   },
 
   {
+    slug: "on-running",
+    company: "On",
+    role: "IAM & Security Engineer (Contract)",
+    start: "Jan 2026",
+    end: "Apr 2026",
+    location: "Zurich, CH (Remote, UK)",
+    sector: "Retail",
+    headline:
+      "IAM, endpoint and governance delivery for On — including an Okta Adaptive MFA rollout and Okta Verify deployment across the macOS and Windows fleet.",
+    highlights: [
+      "Rolled out Okta Adaptive MFA across the workforce",
+      "Deployed Okta Verify to company devices on both macOS and Windows",
+      "Delivered across identity, endpoint/EDR and compliance workstreams",
+    ],
+    stack: ["Okta", "Okta Adaptive MFA", "Okta Verify", "MFA", "EDR", "MDM", "GRC"],
+    ribbons: ["Okta SME", "Adaptive MFA"],
+    projects: [
+      {
+        title: "Identity & MFA",
+        bullets: [
+          "Rolled out Okta Adaptive MFA across the workforce",
+          "Deployed Okta Verify to company devices on both macOS and Windows",
+          "Supported wider IAM / identity workstreams",
+        ],
+      },
+      {
+        title: "Endpoint & governance",
+        bullets: [
+          "Contributed to endpoint / EDR and device-management workstreams",
+          "Supported compliance and governance controls",
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "miro",
+    company: "Miro",
+    role: "IAM Engineer (Contract)",
+    start: "Jul 2024",
+    end: "Nov 2024",
+    location: "Remote, UK",
+    sector: "SaaS",
+    headline:
+      "Identity & access management engineering for Miro, the visual-collaboration platform.",
+    highlights: [
+      "Delivered IAM / identity engineering across the workforce identity stack",
+    ],
+    stack: ["IAM", "SSO", "MFA", "SCIM", "Identity governance"],
+    ribbons: ["IAM"],
+    projects: [
+      {
+        title: "Identity & access",
+        bullets: [
+          "Delivered IAM / identity engineering across the workforce identity stack",
+        ],
+      },
+    ],
+  },
+
+  {
     slug: "traxent",
     company: "Traxent",
     role: "CIAM Engineer (Contract)",

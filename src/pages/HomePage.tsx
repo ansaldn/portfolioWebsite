@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
 import CredentialsCarousel from "../components/CredentialsCarousel";
-import ClientsCarousel from "../components/ClientsCarousel";
+import IndustryShowcase from "../components/IndustryShowcase";
 import SkillsStrip from "../components/SkillsStrip";
 import { education } from "../data/credentials";
 import "./HomePage.css";
@@ -50,9 +50,10 @@ const HomePage = () => {
               <span className="eyebrow">CLIENTS</span>
               <h2>Where I've delivered</h2>
               <p>
-                Ten engagements across gaming, industry, fintech, healthtech,
-                edtech, retail and medical. Scroll the cards or open the full
-                page for the deep dives.
+                Engagements across gaming, fintech, industry, medical,
+                healthtech, edtech, retail and SaaS. Hover an industry to
+                spotlight the companies — or open the full page for the deep
+                dives.
               </p>
             </div>
             <Link to="/clients" className="btn btn-outline-primary">
@@ -60,7 +61,7 @@ const HomePage = () => {
             </Link>
           </div>
 
-          <ClientsCarousel />
+          <IndustryShowcase />
         </div>
       </section>
 
